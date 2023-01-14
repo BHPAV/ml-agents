@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/PolygonMini_City/Scenes/Demo_FloatingIsland.unity
+    guid: 06d44653189dcf34b8b25a0ea03ef85c
   m_configObjects: {}
