@@ -23,4 +23,13 @@ public class PushBus_GoalDetect : MonoBehaviour
             agent.ScoredAGoal();
         }
     }
+
+    void OnTriggerEnter(Collider col)
+    {
+        // Touched goal.
+        if (col.gameObject.CompareTag("goal"))
+        {
+            agent.ScoredAGoal();
+        }
+    }
 }

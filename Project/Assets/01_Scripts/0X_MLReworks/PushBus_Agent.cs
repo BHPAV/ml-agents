@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors.Reflection;
 
 public class PushBus_Agent : Agent
 {
@@ -53,6 +54,32 @@ public class PushBus_Agent : Agent
     Renderer m_GroundRenderer;
 
     EnvironmentParameters m_ResetParams;
+
+    public int stepsCheck = 0;
+
+    //Reward Weightings
+    [SerializeField] private float weightSpeed = 0.0f;
+    [SerializeField] private float weightCrash = 0.0f;
+    [SerializeField] private float weightGoal = 0.0f;
+
+    //Specific Observations for Rotation of the Car
+    [Observable(numStackedObservations: 9)]
+    Vector2 Rotation
+    {
+        get
+        {
+            return new Vector2(gameObject.transform.rotation.z, gameObject.transform.rotation.x);
+        }
+    }
+
+    [Observable(numStackedObservations: 9)]
+    Vector3 WorldPosition
+    {
+        get
+        {
+            return gameObject.transform.position;
+        }
+    }
 
     protected override void Awake()
     {
@@ -104,13 +131,14 @@ public class PushBus_Agent : Agent
         return randomSpawnPos;
     }
 
+
     /// <summary>
     /// Called when the agent moves the block into the goal.
     /// </summary>
     public void ScoredAGoal()
     {
         // We use a reward of 5.
-        AddReward(5f);
+        AddReward(1f * weightGoal);
 
         // By marking an agent as done AgentReset() will be called automatically.
         EndEpisode();
@@ -128,6 +156,35 @@ public class PushBus_Agent : Agent
         yield return new WaitForSeconds(time); // Wait for 2 sec
         m_GroundRenderer.material = m_GroundMaterial;
     }
+
+    void Update()
+    {
+        stepsCheck = stepsCheck + 1;
+    }
+
+
+
+    //punish Crashing
+    void OnCollisionEnter(Collision collision) 
+    {
+        if (collision.gameObject.tag == "wall") 
+        {
+            PunishCrash();
+        }
+    }
+
+    private void PunishCrash() 
+    {
+        // code for punishing the crash goes here
+        // We use a reward of 5.
+        AddReward(1f * weightCrash);
+
+        // By marking an agent as done AgentReset() will be called automatically.
+        EndEpisode();
+
+    }
+
+
 
     /// <summary>
     /// Moves the agent according to the selected action.
@@ -188,7 +245,7 @@ public class PushBus_Agent : Agent
         MoveAgent(actionBuffers.DiscreteActions);
 
         // Penalty given each step to encourage agent to finish task quickly.
-        AddReward(-1f / MaxStep);
+        AddReward((1f * weightSpeed)/ MaxStep);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -239,6 +296,8 @@ public class PushBus_Agent : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
+        stepsCheck = 0;
+
         var rotation = Random.Range(0, 4);
         var rotationAngle = rotation * 90f;
         area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
