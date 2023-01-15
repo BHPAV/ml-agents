@@ -81,6 +81,9 @@ public class PushBus_Agent : Agent
         }
     }
 
+
+    public float _thrust = 5.0f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -288,6 +291,15 @@ public class PushBus_Agent : Agent
 
         // Reset block angularVelocity back to zero.
         m_BlockRb.angularVelocity = Vector3.zero;
+
+        // Give it a push.
+        //float _thrust = 5.0f;
+        float _x, _y, _z;
+        _x = _thrust * Random.Range(-1f,1.0f);
+        _y = _thrust * Random.Range(-1f,1.0f);
+        _z = _thrust * Random.Range(-1f,1.0f);
+
+        m_BlockRb.AddForce(_x, _y, _z);
     }
 
     /// <summary>
