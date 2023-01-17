@@ -27,6 +27,7 @@ public class PushBus_Agent : Agent
     /// The goal to push the block to.
     /// </summary>
     public GameObject goal;
+    public Goal_randomizeSize goalArea;
 
     /// <summary>
     /// The block to be pushed to the goal.
@@ -60,6 +61,7 @@ public class PushBus_Agent : Agent
     //Reward Weightings
     [SerializeField] private float weightSpeed = 0.0f;
     [SerializeField] private float weightCrash = 0.0f;
+    [SerializeField] private float weightTouch = 0.0f;
     [SerializeField] private float weightGoal = 0.0f;
 
     //Specific Observations for Rotation of the Car
@@ -174,6 +176,11 @@ public class PushBus_Agent : Agent
         {
             PunishCrash();
         }
+
+        if (collision.gameObject.tag == "ball") 
+        {
+            RewardBallTouch();
+        }
     }
 
     private void PunishCrash() 
@@ -185,6 +192,15 @@ public class PushBus_Agent : Agent
         // By marking an agent as done AgentReset() will be called automatically.
         EndEpisode();
 
+    }
+
+    private void RewardBallTouch() 
+    {
+        // code for punishing the crash goes here
+        // We use a reward of 5.
+        AddReward((0.5f * weightTouch) / MaxStep);
+
+        // By marking an agent as done AgentReset() will be called automatically.
     }
 
 
@@ -320,6 +336,11 @@ public class PushBus_Agent : Agent
         m_AgentRb.angularVelocity = Vector3.zero;
 
         SetResetParameters();
+
+        if(goalArea != null)
+        {
+            goalArea.ChangeScale();
+        }
     }
 
     public void SetGroundMaterialFriction()

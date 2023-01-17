@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Agent_Rewarder : MonoBehaviour
 {
+    /*
     //Controls total reward sent to agent
     private int rewardTotal;
 
@@ -11,6 +12,11 @@ public class Agent_Rewarder : MonoBehaviour
     [SerializeField] private bool EncourageSpeed;
     [SerializeField] private int MaxSteps;
     [SerializeField] private int CurrentSteps;
+
+    [SerializeField] private float weightSpeed = 0.0f;
+    [SerializeField] private float weightCrash = 0.0f;
+    [SerializeField] private float weightTouch = 0.0f;
+    [SerializeField] private float weightGoal = 0.0f;
 
 
     //Collission Target
@@ -82,5 +88,6 @@ public class Agent_Rewarder : MonoBehaviour
             }
         }
     }
+    */
 
 }

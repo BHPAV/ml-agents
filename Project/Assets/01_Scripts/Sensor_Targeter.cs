@@ -12,7 +12,7 @@ public class Sensor_Targeter : MonoBehaviour
     [SerializeField] private Vector3 tPosistion;
     [SerializeField] private Vector3 tDirection;
 
-
+    [SerializeField] private bool drawGizmos;
 
     //Specific Observations for Location of the Car - Speed Variable
     [Observable(numStackedObservations: 9)]
@@ -20,7 +20,7 @@ public class Sensor_Targeter : MonoBehaviour
     {
         get
         {
-            return TargetMovement();
+            return TargetPosition();
         }
     }
 
@@ -30,7 +30,7 @@ public class Sensor_Targeter : MonoBehaviour
     {
         get
         {
-            return TargetLocation();
+            return TargetDirection();
         }
     }
 
@@ -44,7 +44,7 @@ public class Sensor_Targeter : MonoBehaviour
 
 
 
-    public Vector3 TargetMovement()
+    public Vector3 TargetPosition()
     {
         //Provides 1 Vector 3 observations.
         //If target is null - Provide zero value observations
@@ -59,7 +59,7 @@ public class Sensor_Targeter : MonoBehaviour
             }
     }
 
-    public Vector3 TargetLocation()
+    public Vector3 TargetDirection()
     {
         //Provides 1 Vector 3 observations.
         //If target is null - Provide zero value observations
@@ -68,7 +68,7 @@ public class Sensor_Targeter : MonoBehaviour
         if(target != null)
             {
                 // Target Direction in agent frame
-                _result = this.transform.InverseTransformDirection(FindDirection(target));
+                _result = this.transform.InverseTransformDirection(target.transform.position);
                 _result = _result.normalized;
                 return _result;
             }
@@ -93,5 +93,22 @@ public class Sensor_Targeter : MonoBehaviour
     {
         float dist = Vector3.Distance(_target.transform.position, transform.position);
         return dist;
+    }
+
+    //// For testing!
+    void OnDrawGizmosSelected() 
+    {
+        if(drawGizmos)
+        {
+            Vector3 _tpos = TargetPosition();
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, target.transform.position);
+
+            //Direction
+            Gizmos.DrawSphere(target.transform.position, 0.25f);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, _tpos);
+        } 
     }
 }
