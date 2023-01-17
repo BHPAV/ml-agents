@@ -19,6 +19,11 @@ public class AgentBus_GoalDetect : MonoBehaviour
         {
             agent.ScoredAGoal();
         }
+
+        if (col.gameObject.CompareTag("wall"))
+        {
+            agent.PunishBallCrash();
+        }
     }
 
     void OnTriggerEnter(Collider col)

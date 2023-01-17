@@ -64,7 +64,9 @@ public class AgentBus : Agent
     public float RewardBallDistance = 0.0f;
     public bool EncourageSpeed;
     public bool EncourageBallDistance;
+    public bool DiscourageBallCrash;
     public float ballToGoalDistance;
+    public float ballToGoalDistanceMin;
     public float ballToGoalDistanceMax;
 
 
@@ -201,6 +203,8 @@ public class AgentBus : Agent
     }
 
 
+
+
     /// <summary>
     /// Swap ground material, wait time seconds, then swap back to the regular material.
     /// </summary>
@@ -212,51 +216,7 @@ public class AgentBus : Agent
     }
 
 
-    //punish Crashing
-    void OnCollisionEnter(Collision collision) 
-    {
-        if (collision.gameObject.tag == "wall") 
-        {
-            PunishCrash();
-        }
-
-        if (collision.gameObject.tag == "ball") 
-        {
-            RewardBallTouch();
-        }
-    }
-
-    private void PunishCrash() 
-    {
-        // code for punishing the crash goes here
-        AddReward(-1f);
-
-        // By marking an agent as done AgentReset() will be called automatically.
-        EndEpisode();
-    }
-
-    private void RewardBallTouch() 
-    {
-        //Limit total number of rewards for Touching
-        float _reward = 0.1f;
-        if(RewardTouches <= 0.5f)
-        {
-            AddReward(_reward);
-            RewardTouches += _reward;
-        }
-    }
-
-    public void ScoredAGoal()
-    {
-        // We use a reward of 5.
-        AddReward(1f);
-
-        // By marking an agent as done AgentReset() will be called automatically.
-        EndEpisode();
-
-        // Swap ground material for a bit to indicate we scored.
-        StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
-    }
+    
 
     /// <summary>
     /// Moves the agent according to the selected action.
@@ -388,9 +348,6 @@ public class AgentBus : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        stepsCheck = 0;
-        ballToGoalDistanceMax = GetBalltoGoalDistance();
-
         var rotation = Random.Range(0, 4);
         var rotationAngle = rotation * 90f;
         area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
@@ -402,13 +359,20 @@ public class AgentBus : Agent
 
         SetResetParameters();
 
+
+        //CustomRewardCode ---------
         if(goalArea != null)
         {
             goalArea.ChangeScale();
         }
 
+        stepsCheck = 0;
+        ballToGoalDistanceMax = GetBalltoGoalDistance();
+        ballToGoalDistanceMin = ballToGoalDistanceMax;
+
         RewardTouches = 0.0f;
         RewardTime = 0.0f;
+        RewardBallDistance = 0.0f;
     }
 
     public void SetGroundMaterialFriction()
@@ -438,28 +402,100 @@ public class AgentBus : Agent
         SetBlockProperties();
     }
 
+
+
+
+
+
+
     private void BallDistanceReward()
     {
-        float _distBallToGoal = GetBalltoGoalDistance();
-        if(_distBallToGoal <= ballToGoalDistance)
+        ballToGoalDistance = GetBalltoGoalDistance();
+        if(ballToGoalDistance <= ballToGoalDistanceMin)
         {
-            float _distTravelled = ballToGoalDistance - _distBallToGoal;
-            float _portionTravelled = _distTravelled / ballToGoalDistanceMax;
+            if(ballToGoalDistance <= ballToGoalDistanceMin)
+                {
+                    float _distTravelled = ballToGoalDistanceMin - ballToGoalDistance;
+                    float _portionTravelled = _distTravelled / ballToGoalDistanceMax;
 
-            //Reward Calculation
-            float _reward = 1f * (_portionTravelled);
-            RewardBallDistance = RewardBallDistance + _reward;
-            AddReward(_reward);
+                    //Reward Calculation
+                    float _reward = 0.5f * (_portionTravelled);
+                    RewardBallDistance = RewardBallDistance + _reward;
+                    AddReward(_reward);
+                }
+            
 
-            //Update Ball To Goal remaining
-            ballToGoalDistance = _distBallToGoal;
+            ballToGoalDistanceMin = ballToGoalDistance;
         }
     }
 
     private float GetBalltoGoalDistance()
     {
-        float _result = (m_BlockRb.transform.position - goal.transform.position).magnitude;
+        Vector3 _dist = (m_BlockRb.transform.position - goal.transform.position);
+        float _result = _dist.magnitude;
         return _result;
+    }
+
+
+
+
+    //punish Crashing
+    void OnCollisionEnter(Collision collision) 
+    {
+        if (collision.gameObject.tag == "wall") 
+        {
+            PunishCrash();
+        }
+
+        if (collision.gameObject.tag == "ball") 
+        {
+            RewardBallTouch();
+        }
+    }
+
+    private void PunishCrash() 
+    {
+        // code for punishing the crash goes here
+        AddReward(-1f);
+
+        // By marking an agent as done AgentReset() will be called automatically.
+        EndEpisode();
+    }
+
+    public void PunishBallCrash() 
+    {
+        if(DiscourageBallCrash)
+        {
+            // code for punishing the crash goes here
+            AddReward(-1f);
+
+            // By marking an agent as done AgentReset() will be called automatically.
+            EndEpisode();
+        }
+        
+    }
+
+    private void RewardBallTouch() 
+    {
+        //Limit total number of rewards for Touching
+        float _reward = 0.25f/4f;
+        if(RewardTouches <= 0.25f)
+        {
+            AddReward(_reward);
+            RewardTouches += _reward;
+        }
+    }
+
+    public void ScoredAGoal()
+    {
+        // We use a reward of 5.
+        AddReward(1f);
+
+        // By marking an agent as done AgentReset() will be called automatically.
+        EndEpisode();
+
+        // Swap ground material for a bit to indicate we scored.
+        StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
     }
 
 }
