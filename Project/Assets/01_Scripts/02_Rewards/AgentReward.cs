@@ -32,12 +32,25 @@ public class AgentReward : MonoBehaviour
     [SerializeField] private float countBallTouch;
     [SerializeField] private float maxBallTouch;
 
+    [SerializeField] private GameObject _BallObj;
+    [SerializeField] private GameObject _AgentObj;
+
     
 
 
 
 
+    public void GetDistance(GameObject _object1, GameObject _object2)
+    {
+        float distance = Vector3.Distance(_object1.transform.position, _object2.transform.position);
+        Debug.Log(distance);
+    }
 
+
+
+
+    
+        
     public void ResetStats(AgentBus _agent)
     {
         if(_agent == agent)
@@ -46,10 +59,6 @@ public class AgentReward : MonoBehaviour
             countGoal = 0;
         }
     }
-
-
-
-
 
     public void IssueReward(AgentBus _agent)
     {
@@ -65,7 +74,6 @@ public class AgentReward : MonoBehaviour
         }
     }
 
-
     //Math to return the reward value
     private float CalculateReward()
     {
@@ -73,14 +81,10 @@ public class AgentReward : MonoBehaviour
         return _result;
     }
 
-
-
     private bool AgentCheck(AgentBus _agent)
     {
         return (_agent == agent);    
     }
-
-
 
     public void PunishBallCrash(AgentBus _agent) 
     {
@@ -159,6 +163,22 @@ public class AgentReward : MonoBehaviour
             else    
                 countBallTouch = countBallTouch + 1;
         }
+    }
+
+    public void RewardDistanceBall(AgentBus _agent)
+    {
+        //Divide this by 20...
+        float _result = 0.0f;
+
+        float _balldistance = GetDistance();
+        _result = 1.0f - _balldistance / 20.0f;
+
+        agent.ApplyReward(_result);
+    }
+
+    public float GetDistance()
+    {
+        return Vector3.Distance(_BallObj.transform.position, _AgentObj.transform.position);
     }
 
 

@@ -497,7 +497,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2944891446735269605}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2818545224132852396
 MonoBehaviour:
@@ -614,7 +614,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2944891446735269605}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2818545224514272586
 MonoBehaviour:
@@ -641,9 +641,11 @@ MonoBehaviour:
   rewardGoal: 0
   limitGoalTouch: 0
   countGoal: 0
+  maxGoal: 0
   limitBallTouch: 0
   rewardBallTouch: 0
   countBallTouch: 0
+  maxBallTouch: 0
 --- !u!114 &2818545224514272587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,7 +817,7 @@ Transform:
   - {fileID: 7802303551961558961}
   - {fileID: 3688599747153388999}
   m_Father: {fileID: 2944891446735269605}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2942420743468941899
 GameObject:
@@ -855,9 +857,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5931768631634829698}
-  - {fileID: 2818545224514272596}
   - {fileID: 2818545224132852392}
   - {fileID: 2818545224930883238}
+  - {fileID: 2818545224514272596}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 176.655, z: 0}
