@@ -6,8 +6,9 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors.Reflection;
 
-public class AgentBus : Agent
+public class AgentBusBackup : Agent
 {
+    /*
     /// <summary>
     /// The ground. The bounds are used to spawn the elements.
     /// </summary>
@@ -15,10 +16,8 @@ public class AgentBus : Agent
     public GameObject area;
 
     [SerializeField] GameEvent _actionReceived;
-    [SerializeField] GameEvent _crashedEvent;
-    [SerializeField] RewardEvent _EpisodeRestart;
 
-
+    public float _thrust = 5.0f;
 
     /// <summary>
     /// The area bounds.
@@ -38,7 +37,7 @@ public class AgentBus : Agent
     /// The block to be pushed to the goal.
     /// </summary>
     public GameObject block;
-    private bool isRound = true;
+    public bool isRound;
 
     
 
@@ -62,18 +61,17 @@ public class AgentBus : Agent
 
 
     //Reward Coding
-    //[SerializeField] private AgentRewardManager rewardManager; private
-
-    //private float RewardTouches;
-    private float RewardTime;
-    private float RewardBallDistance;
-    private bool EncourageSpeed;
-    private bool EncourageBallDistance;
-    private bool EncourageBallTouch;
-    private bool DiscourageBallCrash;
-    private float ballToGoalDistance;
-    private float ballToGoalDistanceMin;
-    private float ballToGoalDistanceMax;
+    //[SerializeField] private AgentRewardManager rewardManager;
+    public float RewardTouches = 0.0f;
+    public float RewardTime = 0.0f;
+    public float RewardBallDistance = 0.0f;
+    public bool EncourageSpeed;
+    public bool EncourageBallDistance;
+    public bool EncourageBallTouch;
+    public bool DiscourageBallCrash;
+    public float ballToGoalDistance;
+    public float ballToGoalDistanceMin;
+    public float ballToGoalDistanceMax;
 
 
     [HideInInspector]
@@ -81,7 +79,7 @@ public class AgentBus : Agent
 
 
 
-    /*
+
     //Specific Observations for Rotation of the Car
     [Observable(numStackedObservations: 9)]
     Vector2 Rotation
@@ -120,9 +118,7 @@ public class AgentBus : Agent
             return TargetDirection();
         }
     }
-    */
 
-    /*
     public Vector3 TargetPosition()
     {
         //Provides 1 Vector 3 observations.
@@ -156,7 +152,7 @@ public class AgentBus : Agent
                 return _result; // vec 3
             }
     }
-    */
+
 
     
 
@@ -287,7 +283,6 @@ public class AgentBus : Agent
         _actionReceived?.Invoke(this);
 
 
-    /*
         if(EncourageSpeed)
         {
             float _reward = (-0.5f)/ MaxStep;
@@ -299,8 +294,6 @@ public class AgentBus : Agent
         {
             BallDistanceReward();
         }
-    */
-
         //Check
         stepsCheck = stepsCheck + 1;
     }
@@ -340,23 +333,20 @@ public class AgentBus : Agent
         // Get a random position for the block.
         block.transform.position = GetRandomSpawnPos();
 
-        //Vector3 _newPos = new Vector3(0.0f,0.0f,0.0f);
-        //int _rand = Random.Range(0,3);
-        //switch(_rand)
-        //{
-        //    case 0 : {_newPos = new Vector3(25.0f,1.0f,0.0f); break;}
-        //    case 1 : {_newPos = new Vector3(-25.0f,1.0f,0.0f); break;}
-        //    case 2 : {_newPos = new Vector3(0.0f,1.0f,25.0f); break;}
-        //    case 3 : {_newPos = new Vector3(0.0f,1.0f,-25.0f); break;}
-        //}
-        //_newPos = block.transform.position;
-
         // Reset block velocity back to zero.
         m_BlockRb.velocity = Vector3.zero;
 
         // Reset block angularVelocity back to zero.
         m_BlockRb.angularVelocity = Vector3.zero;
 
+        // Give it a push.
+        //float _thrust = 5.0f;
+        float _x, _y, _z;
+        _x = _thrust * Random.Range(-1f,1.0f);
+        _y = _thrust * Random.Range(-1f,1.0f);
+        _z = _thrust * Random.Range(-1f,1.0f);
+
+        m_BlockRb.AddForce(_x, _y, _z);
     }
 
     /// <summary>
@@ -365,9 +355,6 @@ public class AgentBus : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        //Let everyone know the episode is restarting.
-        _EpisodeRestart?.Invoke(this);
-        
         var rotation = Random.Range(0, 4);
         var rotationAngle = rotation * 90f;
         area.transform.Rotate(new Vector3(0f, rotationAngle, 0f));
@@ -390,9 +377,9 @@ public class AgentBus : Agent
         ballToGoalDistanceMax = GetBalltoGoalDistance();
         ballToGoalDistanceMin = ballToGoalDistanceMax;
 
-        ///RewardTouches = 0.0f;
-        ///RewardTime = 0.0f;
-        ///RewardBallDistance = 0.0f;
+        RewardTouches = 0.0f;
+        RewardTime = 0.0f;
+        RewardBallDistance = 0.0f;
     }
 
     public void SetGroundMaterialFriction()
@@ -473,33 +460,30 @@ public class AgentBus : Agent
         }
     }
 
-
-
     private void PunishCrash() 
     {
         // code for punishing the crash goes here
-        //AddReward(-1f);
+        AddReward(-1f);
 
         // By marking an agent as done AgentReset() will be called automatically.
-        //EndEpisode();
+        EndEpisode();
     }
 
     public void PunishBallCrash() 
     {
-        //if(DiscourageBallCrash)
-        //{
+        if(DiscourageBallCrash)
+        {
             // code for punishing the crash goes here
-        //    AddReward(-1f);
+            AddReward(-1f);
 
             // By marking an agent as done AgentReset() will be called automatically.
-        //    EndEpisode();
-        //}
+            EndEpisode();
+        }
         
     }
 
     private void RewardBallTouch() 
     {
-        /*
         if(EncourageBallTouch)
         {
             //Limit total number of rewards for Touching
@@ -509,17 +493,16 @@ public class AgentBus : Agent
                 AddReward(_reward);
                 RewardTouches += _reward;
             }
-        } 
-        */ 
+        }  
     }
 
     public void ScoredAGoal()
     {
         // We use a reward of 5.
-        //AddReward(1f);
+        AddReward(1f);
 
         // By marking an agent as done AgentReset() will be called automatically.
-        //EndEpisode();
+        EndEpisode();
 
         // Swap ground material for a bit to indicate we scored.
         StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
@@ -527,20 +510,15 @@ public class AgentBus : Agent
 
     
 
-    public void TestingMessage()
-    {
-        Debug.Log("IT WORKED");
-    }
-
 
     public void ApplyReward(float _reward)
     {
         AddReward(_reward);
-    }
 
-    public void RequestEpisodeEnd()
-    {
-        EndEpisode();
+        if(_reward == 1.25f)
+        {
+            Debug.Log("Test Worked " + _reward);
+        }
     }
 
 
@@ -548,5 +526,5 @@ public class AgentBus : Agent
     {
 
     }
-
+    */
 }

@@ -7,6 +7,10 @@ using UnityEngine.UI;
 using TMPro;
 //using System.Linq;
 
+using Unity.MLAgents;
+using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors.Reflection;
+
 public class CarDriver : MonoBehaviour
 {
     //Custom Additions
@@ -190,6 +194,7 @@ public class CarDriver : MonoBehaviour
     [Space(15)]
 
     [Header("Debug Values")]
+    [Observable(numStackedObservations: 3)]
     public float Car_Speed_KPH; //The car speed in KPH
     public float Car_Speed_MPH; //The car speed in MPH
     

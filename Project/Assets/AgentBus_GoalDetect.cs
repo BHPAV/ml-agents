@@ -17,12 +17,17 @@ public class AgentBus_GoalDetect : MonoBehaviour
         // Touched goal.
         if (col.gameObject.CompareTag("goal"))
         {
-            agent.ScoredAGoal();
+            HitGoal();
         }
 
         if (col.gameObject.CompareTag("wall"))
         {
-            agent.PunishBallCrash();
+            HitWall();
+        }
+
+        if (col.gameObject.CompareTag("agent"))
+        {
+            HitAgent();
         }
     }
 
@@ -31,7 +36,32 @@ public class AgentBus_GoalDetect : MonoBehaviour
         // Touched goal.
         if (col.gameObject.CompareTag("goal"))
         {
-            agent.ScoredAGoal();
+            HitGoal();
         }
     }
+
+
+    [SerializeField] GameEvent _hitWall;
+    [SerializeField] RewardEvent _hitWallReward;
+    void HitWall()
+    {
+        _hitWallReward.Invoke(agent);
+        _hitWall?.Invoke(agent);
+    }
+
+    [SerializeField] GameEvent _hitGoal;
+    [SerializeField] RewardEvent _hitGoalReward;
+    void HitGoal()
+    {
+        _hitGoal?.Invoke(agent);
+        _hitGoalReward.Invoke(agent);
+    }
+
+    [SerializeField] RewardEvent _hitBallReward;
+    void HitAgent()
+    {
+        _hitBallReward.Invoke(agent);
+    }
+
+    
 }

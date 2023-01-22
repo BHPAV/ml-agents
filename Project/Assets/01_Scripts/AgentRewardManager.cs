@@ -7,12 +7,15 @@ using Unity.MLAgents.Actuators;
 
 public class AgentRewardManager : MonoBehaviour
 {
-    /*
     //Controls total reward sent to agent
     private int rewardTotal;
 
     //Speed Optimization
     [SerializeField] private bool EncourageSpeed;
+    [SerializeField] private bool EncourageBallDistance;
+    [SerializeField] private bool EncourageBallTouch;
+    [SerializeField] private bool DiscourageBallCrash;
+
     [SerializeField] private int MaxStep;
     [SerializeField] private int CurrentSteps;
 
@@ -105,7 +108,6 @@ public class AgentRewardManager : MonoBehaviour
 
     public void SmallReward()
     {
-        AddReward(TouchReward);
+        //AddReward(TouchReward);
     }
-    */
 }

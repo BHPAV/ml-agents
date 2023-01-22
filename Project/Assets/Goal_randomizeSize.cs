@@ -26,6 +26,6 @@ public class Goal_randomizeSize : MonoBehaviour
         float scale = Random.Range(min, max);
 
         // Change the scale of the object
-        transform.localScale = new Vector3(scale, 0.15f, scale);
+        transform.localScale = new Vector3(scale, scale, scale);
     }
 }

@@ -59,6 +59,10 @@ public class Sensor_Targeter : MonoBehaviour
             }
     }
 
+   
+
+
+
     public Vector3 TargetDirection()
     {
         //Provides 1 Vector 3 observations.
@@ -77,6 +81,9 @@ public class Sensor_Targeter : MonoBehaviour
                 return _result; // vec 3
             }
     }
+
+
+    
 
 
 

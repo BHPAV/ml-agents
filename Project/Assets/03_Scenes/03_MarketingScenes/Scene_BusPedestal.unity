@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45033944, g: 0.5003621, b: 0.5752919, a: 1}
+  m_IndirectSpecularColor: {r: 0.44863737, g: 0.49868995, b: 0.5756723, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -222,14 +222,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 362890715}
-  m_LocalRotation: {x: 0.47046584, y: 0.8052193, z: -0.20250888, w: 0.29878765}
-  m_LocalPosition: {x: 21.08, y: 14.4, z: -1.08}
+  m_LocalRotation: {x: 0.6642101, y: -0.49094284, z: -0.054755356, w: 0.56107223}
+  m_LocalPosition: {x: 3.85, y: 4.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 37.392002, y: 158.54301, z: 53.256004}
+  m_LocalEulerAnglesHint: {x: 43.755, y: -120.298, z: -81.108}
 --- !u!1001 &378707732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -693,7 +693,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551579930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.577, y: -0.205, z: 2.493}
+  m_LocalPosition: {x: 0.577, y: -0.205, z: 2.52345}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1142,7 +1142,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010045789035249441}
-  m_LocalRotation: {x: 0.0022585995, y: -0.96588904, z: 0.008429207, w: 0.25880924}
+  m_LocalRotation: {x: 0.008726558, y: 0, z: 0, w: 0.999962}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1151,7 +1151,7 @@ Transform:
   - {fileID: 6879196000866390747}
   m_Father: {fileID: 1403893208}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 1, y: -150, z: 0}
+  m_LocalEulerAnglesHint: {x: 1, y: 0, z: 0}
 --- !u!146 &2221472217855495085
 WheelCollider:
   m_ObjectHideFlags: 0
