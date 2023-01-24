@@ -14,7 +14,7 @@ public class AgentBus : Agent
     public GameObject ground;
     public GameObject area;
 
-    [SerializeField] GameEvent _actionReceived;
+    [SerializeField] RewardEvent _actionReceived;
     [SerializeField] GameEvent _crashedEvent;
     [SerializeField] RewardEvent _EpisodeRestart;
 
@@ -78,7 +78,7 @@ public class AgentBus : Agent
 
     [HideInInspector]
     public AgentBus_GoalDetect goalDetect;
-
+    public SpawnPointManager spawnPointManager;
 
 
     /*
@@ -163,11 +163,12 @@ public class AgentBus : Agent
     protected override void Awake()
     {
         base.Awake();
-        m_PushBlockSettings = FindObjectOfType<PushBlockSettings>();
+        m_PushBlockSettings = FindObjectOfType<PushBlockSettings>(); 
     }
 
     public override void Initialize()
     {
+        spawnPointManager = GetComponent<SpawnPointManager>();
         goalDetect = block.GetComponent<AgentBus_GoalDetect>();
         goalDetect.agent = this;
 
@@ -338,7 +339,9 @@ public class AgentBus : Agent
     void ResetBlock()
     {
         // Get a random position for the block.
-        block.transform.position = GetRandomSpawnPos();
+        //block.transform.position = GetRandomSpawnPos();
+
+        block.transform.position = spawnPointManager.GetRandomSpawnPoint();
 
         //Vector3 _newPos = new Vector3(0.0f,0.0f,0.0f);
         //int _rand = Random.Range(0,3);
@@ -365,8 +368,7 @@ public class AgentBus : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
-        //Let everyone know the episode is restarting.
-        _EpisodeRestart?.Invoke(this);
+        
         
         var rotation = Random.Range(0, 4);
         var rotationAngle = rotation * 90f;
@@ -393,6 +395,9 @@ public class AgentBus : Agent
         ///RewardTouches = 0.0f;
         ///RewardTime = 0.0f;
         ///RewardBallDistance = 0.0f;
+
+        //Let everyone know the episode is restarting.
+        _EpisodeRestart?.Invoke(this);
     }
 
     public void SetGroundMaterialFriction()

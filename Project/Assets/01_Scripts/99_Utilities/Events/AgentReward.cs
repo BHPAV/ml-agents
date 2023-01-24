@@ -48,7 +48,7 @@ public class AgentReward : MonoBehaviour
 
 
 
-
+    
     
         
     public void ResetStats(AgentBus _agent)
