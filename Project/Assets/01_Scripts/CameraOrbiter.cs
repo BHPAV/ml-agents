@@ -9,4 +9,11 @@ public class CameraOrbiter : MonoBehaviour
     {
         transform.RotateAround(orbitTarget.position, Vector3.up, orbitSpeed * Time.deltaTime);
     }
+
+
+    public void RotateOn()
+    {
+
+    }
+
 }

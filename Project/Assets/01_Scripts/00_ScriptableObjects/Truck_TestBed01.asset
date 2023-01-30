@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa431ddd39aadf429728a701ee52bcb, type: 3}
+  m_Name: Truck_TestBed01
+  m_EditorClassIdentifier: 
+  carPrefab: {fileID: 2440209296213475759, guid: ac9ced81991c89545bf99ecad596a9ad,
+    type: 3}
+  topSpeed: 0
+  acceleration: 0
+  handling: 0
+  braking: 0

@@ -9,6 +9,13 @@ TagManager:
   - Enemy
   - World
   - NoMask
+  - agent
+  - ground
+  - wall
+  - ball
+  - goal
+  - tile
+  - SpawnAgent
   layers:
   - Default
   - TransparentFX

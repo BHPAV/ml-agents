@@ -1,6 +1,8 @@
 //Put this script on your blue cube.
 
 using System.Collections;
+using System.Collections.Generic;
+
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
@@ -8,15 +10,19 @@ using Unity.MLAgents.Sensors.Reflection;
 
 public class AgentBus : Agent
 {
+
+    
+    public List<Transform> transforms;
+
     /// <summary>
     /// The ground. The bounds are used to spawn the elements.
     /// </summary>
     public GameObject ground;
     public GameObject area;
 
-    [SerializeField] RewardEvent _actionReceived;
-    [SerializeField] GameEvent _crashedEvent;
-    [SerializeField] RewardEvent _EpisodeRestart;
+    public RewardEvent _actionReceived;
+    public GameEvent _crashedEvent;
+    public RewardEvent _EpisodeRestart;
 
 
 
@@ -44,7 +50,7 @@ public class AgentBus : Agent
 
     public bool useVectorObs;
 
-    Rigidbody m_BlockRb;  //cached on initialization
+    public Rigidbody m_BlockRb;  //cached on initialization
     Rigidbody m_AgentRb;  //cached on initialization
     Material m_GroundMaterial; //cached on Awake()
 
@@ -79,6 +85,10 @@ public class AgentBus : Agent
     [HideInInspector]
     public AgentBus_GoalDetect goalDetect;
     public SpawnPointManager spawnPointManager;
+
+
+
+    
 
 
     /*
@@ -188,11 +198,14 @@ public class AgentBus : Agent
         SetResetParameters();
     }
 
+    
+
     /// <summary>
     /// Use the ground's bounds to pick a random spawn position.
     /// </summary>
     public Vector3 GetRandomSpawnPos()
     {
+        /*
         var foundNewSpawnLocation = false;
         var randomSpawnPos = Vector3.zero;
         while (foundNewSpawnLocation == false)
@@ -208,7 +221,12 @@ public class AgentBus : Agent
                 foundNewSpawnLocation = true;
             }
         }
-        return randomSpawnPos;
+        */
+
+        int randomIndex = Random.Range(0, transforms.Count);
+        return transforms[randomIndex].position;
+
+        //return randomSpawnPos;
     }
 
 
@@ -339,20 +357,7 @@ public class AgentBus : Agent
     void ResetBlock()
     {
         // Get a random position for the block.
-        //block.transform.position = GetRandomSpawnPos();
-
         block.transform.position = spawnPointManager.GetRandomSpawnPoint();
-
-        //Vector3 _newPos = new Vector3(0.0f,0.0f,0.0f);
-        //int _rand = Random.Range(0,3);
-        //switch(_rand)
-        //{
-        //    case 0 : {_newPos = new Vector3(25.0f,1.0f,0.0f); break;}
-        //    case 1 : {_newPos = new Vector3(-25.0f,1.0f,0.0f); break;}
-        //    case 2 : {_newPos = new Vector3(0.0f,1.0f,25.0f); break;}
-        //    case 3 : {_newPos = new Vector3(0.0f,1.0f,-25.0f); break;}
-        //}
-        //_newPos = block.transform.position;
 
         // Reset block velocity back to zero.
         m_BlockRb.velocity = Vector3.zero;
