@@ -45,22 +45,22 @@ public class AgentBus_GoalDetect : MonoBehaviour
     [SerializeField] RewardEvent _hitWallReward;
     void HitWall()
     {
-        _hitWallReward.Invoke(agent);
-        _hitWall?.Invoke(agent);
+        //_hitWallReward.Invoke(agent);
+        //_hitWall?.Invoke(agent);
     }
 
     [SerializeField] GameEvent _hitGoal;
     [SerializeField] RewardEvent _hitGoalReward;
     void HitGoal()
     {
-        _hitGoal?.Invoke();
-        _hitGoalReward.Invoke(agent);
+        //_hitGoal?.Invoke();
+        //_hitGoalReward.Invoke(agent);
     }
 
     [SerializeField] RewardEvent _hitBallReward;
     void HitAgent()
     {
-        _hitBallReward.Invoke(agent);
+        //_hitBallReward.Invoke(agent);
     }
 
     

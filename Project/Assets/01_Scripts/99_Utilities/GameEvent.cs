@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game Event", fileName = "New Game Event")]
+[CreateAssetMenu(menuName = "Custom Events/Game Event", fileName = "New Game Event")]
 public class GameEvent : ScriptableObject
 {
     
@@ -14,10 +14,10 @@ public class GameEvent : ScriptableObject
             globalEventListener.RaiseEvent();
     }
 
-    public void Invoke(AgentBus _agentBus)
+    public void Invoke(AgentCore _agent)
     {
         foreach (var globalEventListener in _listeners)
-            globalEventListener.RaiseEvent(_agentBus);
+            globalEventListener.RaiseEvent(_agent);
     }
 
     public void Register(GameEventListener gameEventListener) => _listeners.Add(gameEventListener);
@@ -38,11 +38,10 @@ public class AgentEvent : ScriptableObject
             globalEventListener.RaiseEvent();
     }
 
-    
-    public void Invoke(AgentBus _agentBus)
+    public void Invoke(AgentCore _agent)
     {
         foreach (var globalEventListener in _listeners)
-            globalEventListener.RaiseEvent(_agentBus);
+            globalEventListener.RaiseEvent(_agent);
     }
 
     

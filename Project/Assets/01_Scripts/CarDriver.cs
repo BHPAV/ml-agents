@@ -230,10 +230,34 @@ public class CarDriver : MonoBehaviour
     //Hidden Variables (not private, but hidden in inspector)
     [HideInInspector] public float currSpeed; //Current speed
 
+    public void SetRigidbody(Rigidbody _rb)
+    {
+        if(_rb != null){
+            rb = _rb;
+            rb.centerOfMass = Center_of_Mass.localPosition;
+        }
+        else{
+            rb = GetComponent<Rigidbody>(); //get rigidbody
+            rb.centerOfMass = Center_of_Mass.localPosition; //Set the centre of mass of the rigid body to the centre of mass transform
+        }
+
+        Car_Rigidbody = rb;
+    }
+
+
     void Start(){
+
+
+
+        
         //To Prevent The Car From Toppling When Turning Too Much
-        rb = GetComponent<Rigidbody>(); //get rigidbody
-        rb.centerOfMass = Center_of_Mass.localPosition; //Set the centre of mass of the rigid body to the centre of mass transform
+        if(rb == null)
+        {
+            rb = GetComponent<Rigidbody>(); //get rigidbody
+            rb.centerOfMass = Center_of_Mass.localPosition; //Set the centre of mass of the rigid body to the centre of mass transform
+        }
+        
+        
 
         //Play Car Smoke Particle System
         if(Use_Particle_Systems){

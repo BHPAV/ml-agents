@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Sirenix.OdinInspector;
+
+
+
 public class SisaBall : MonoBehaviour
 {
     /// <summary>
@@ -9,9 +13,8 @@ public class SisaBall : MonoBehaviour
     /// This will be set by the agent script on Initialization.
     /// Don't need to manually set.
     /// </summary>
-    [HideInInspector]
-    public AgentBus agent;  //
 
+    public AgentCore lastTouched;
 
 
     ///COLLISIONS SECTION ----------------------------------------------------------------
@@ -21,7 +24,8 @@ public class SisaBall : MonoBehaviour
         // Touched goal.
         if (col.gameObject.CompareTag("goal"))
         {
-            HitGoal();
+            Debug.Log("Goal Touch");
+            HitGoal(lastTouched);
         }
 
         if (col.gameObject.CompareTag("wall"))
@@ -31,42 +35,69 @@ public class SisaBall : MonoBehaviour
 
         if (col.gameObject.CompareTag("agent"))
         {
+            AgentCore _agentCore = col.gameObject.GetComponent<AgentCore>();
+            HitAgent(_agentCore);
             HitAgent();
         }
     }
 
+    
     void OnTriggerEnter(Collider col)
     {
         // Touched goal.
         if (col.gameObject.CompareTag("goal"))
         {
-            HitGoal();
+            HitGoal(lastTouched);
         }
     }
-
+    
 
 
     ///EVENTS SECTION ----------------------------------------------------------------
+    [Title("Events")]
+    public GameEvent eventHitGoal;
+    public GameEvent eventHitWall;
+    public GameEvent eventHitAgent;
 
-    [SerializeField] GameEvent _hitWall;
-    [SerializeField] RewardEvent _hitWallReward;
+    public GameEvent eventFellOffLevel;
+    
+    
+
+    void HitGoal(AgentCore _agent)
+    {
+        //_hitGoal?.Invoke();
+        eventHitGoal?.Invoke(_agent);
+    }
+
     void HitWall()
     {
-        _hitWallReward.Invoke(agent);
-        _hitWall?.Invoke();
+        //eventHitWall.Invoke();
     }
 
-    [SerializeField] GameEvent _hitGoal;
-    [SerializeField] RewardEvent _hitGoalReward;
-    void HitGoal()
-    {
-        _hitGoal?.Invoke();
-        _hitGoalReward.Invoke(agent);
-    }
-
-    [SerializeField] RewardEvent _hitBallReward;
     void HitAgent()
     {
-        _hitBallReward.Invoke(agent);
+        eventHitAgent?.Invoke();
     }
+
+    void HitAgent(AgentCore _agent)
+    {
+        eventHitAgent.Invoke(_agent);
+        lastTouched = _agent;
+    }
+
+    public void TestMessage()
+    {
+        Debug.Log("BALL TOUCHED");
+    }
+
+    public void TestMessage(AgentCore _agent)
+    {
+        Debug.Log("BALL TOUCHED BY " + _agent.gameObject.name);
+    }
+
+    public void UpdateLastTouched(AgentCore _agent)
+    {
+        Debug.Log("BALL TOUCHED BY " + _agent.gameObject.name);
+    }
+    
 }

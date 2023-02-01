@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Reward Event", fileName = "New Reward Event")]
+[CreateAssetMenu(menuName = "Custom Events/Reward Event", fileName = "New Reward Event")]
 public class RewardEvent : ScriptableObject
 {
     

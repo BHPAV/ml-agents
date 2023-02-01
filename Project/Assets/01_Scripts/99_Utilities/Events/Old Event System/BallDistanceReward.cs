@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallDistanceReward : MonoBehaviour
 {
 
-    public AgentBus agent;
+    public AgentCore agent;
     public GameObject object1;
     public GameObject object2;
     public float maxDistance;
@@ -34,7 +34,7 @@ public class BallDistanceReward : MonoBehaviour
     }
 
 
-    public void ResetMaxDistance(AgentBus _agent)
+    public void ResetMaxDistance(AgentCore _agent)
     {
         if(_agent == agent)
         {
@@ -53,14 +53,14 @@ public class BallDistanceReward : MonoBehaviour
 
 
 
-    public void RewardAgent(AgentBus _agent)
+    public void RewardAgent(AgentCore _agent)
     {
         //if(_agent == agent)
             //agent.ApplyReward(GetNormalizedDistance());
     }
 
 
-    public void DistanceCheck(AgentBus _agent)
+    public void DistanceCheck(AgentCore _agent)
     {
         if(_agent == agent)
         {
@@ -82,7 +82,7 @@ public class BallDistanceReward : MonoBehaviour
             
     }
 
-    public void RewardV2(AgentBus _agent)
+    public void RewardV2(AgentCore _agent)
     {
         if(_agent == agent)
         {

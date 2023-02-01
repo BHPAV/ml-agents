@@ -11,26 +11,11 @@ using Unity.MLAgents.Policies;
 
         [SerializeField] private GameObject agentPrefab;
 
-        [SerializeField] private List<GameObject> agentList;
-        public int AgentSelect;
-
-        public List<Transform> carSpawns;
-        public List<Transform> ballSpawns;
-        public GameObject ground;
-        public GameObject area;
-        public RewardEvent _actionReceived;
-        public GameEvent _crashedEvent;
-        public RewardEvent _EpisodeRestart;
-        public GameObject goal;
-        public Goal_randomizeSize goalArea;
-        public GameObject block;
-
-        public GameObject car;
-        public AgentBus agent;
+        private AgentCore agent;
+        private GameObject car;
 
 
-
-        public bool ManualControl;
+        private bool ManualControl;
         private int AIDecisionSpeed;
         private BehaviorParameters  AIBehavior;
         private DecisionRequester decisionRequester;
@@ -41,7 +26,9 @@ using Unity.MLAgents.Policies;
         // Start is called before the first frame update
         void Start()
         {
-            //CreateAgent();
+            agent = GetComponent<AgentCore>();
+
+            CreateAgent();
         }
 
         // Update is called once per frame
@@ -55,30 +42,39 @@ using Unity.MLAgents.Policies;
         {
             if(!Spawned)
             {
+
+
                 //Create the model for the Agent to play with
                 car = Instantiate(agentPrefab,transform);
                 car.transform.parent = transform;
+                CarDriver carDriver = car.GetComponent<CarDriver>();
+
+                //Update the RigidBody
+                Rigidbody _rb = GetComponent<Rigidbody>();
+                carDriver.SetRigidbody(_rb);
 
                 //Give it the level specific attributes
-                agent = car.GetComponent<AgentBus>();
-                agent.transforms = carSpawns;
-                agent.ground = ground;
-                agent.area = area;
-                agent._actionReceived = _actionReceived;
-                agent._crashedEvent = _crashedEvent;
-                agent._EpisodeRestart = _EpisodeRestart;
-                agent.goal = goal;
-                agent.goalArea = goalArea;
-                agent.block = block;
-                agent.m_BlockRb = block.GetComponent<Rigidbody>();
+                agent.SetCarDriver(carDriver);
+                //agent.transforms = carSpawns;
+                //agent.ground = ground;
+                //agent.area = area;
+                //agent._actionReceived = _actionReceived;
+                //agent._crashedEvent = _crashedEvent;
+                //agent._EpisodeRestart = _EpisodeRestart;
+                //agent.goal = goal;
+                //agent.goalArea = goalArea;
+                //agent.block = block;
+                //agent.m_BlockRb = block.GetComponent<Rigidbody>();
 
-                SpawnPointManager spawnPointManager = car.GetComponent<SpawnPointManager>();
-                spawnPointManager.transforms = ballSpawns;
+                //SpawnPointManager spawnPointManager = car.GetComponent<SpawnPointManager>();
+                //spawnPointManager.transforms = ballSpawns;
 
                 //Manual Control Variables
+                /*
                 AIBehavior = car.GetComponent<BehaviorParameters>();
                 decisionRequester = car.GetComponent<DecisionRequester>();
                 AIDecisionSpeed = decisionRequester.DecisionPeriod;
+                */
 
                 //Set to active.
                 car.SetActive(true);
@@ -90,11 +86,12 @@ using Unity.MLAgents.Policies;
 
         public void UpdateAgent(int _agentInt)
         {
-            agentPrefab = agentList[_agentInt];
+            //agentPrefab = agentList[_agentInt];
         }
 
         public void ControlCheck()
         {
+            /*
             if (ManualControl)
             {
                 AIBehavior.BehaviorType = Unity.MLAgents.Policies.BehaviorType.HeuristicOnly;
@@ -106,13 +103,16 @@ using Unity.MLAgents.Policies;
                 AIBehavior.BehaviorType = Unity.MLAgents.Policies.BehaviorType.InferenceOnly;
                 decisionRequester.DecisionPeriod = AIDecisionSpeed;
             }
+            */
         }
 
 
         public void ChangeState()
         {
+            /*
             ManualControl = !ManualControl;
             ControlCheck();
+            */
         }
     }
 

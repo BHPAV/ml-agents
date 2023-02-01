@@ -19,15 +19,31 @@ public class SpawnPointManager : MonoBehaviour
         return transforms[randomIndex].position;
     }
 
-    // Start is called before the first frame update
-    void Start()
+
+    public void MoveToRandomSpawnPosition()
     {
+        if(transforms.Count > 0)
+        {
+            this.transform.position = GetRandomSpawnPoint();
+        }
+        else
+        {
+            Debug.Log("NO SPAWN POINTS TO MOVE TO FOR " + gameObject.name);
+        }
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveToRandomSpawnPosition(AgentCore _agent)
     {
+        if(transforms.Count > 0)
+        {
+            this.transform.position = GetRandomSpawnPoint();
+        }
+        else
+        {
+            Debug.Log("NO SPAWN POINTS TO MOVE TO FOR " + gameObject.name);
+        }
         
     }
+
 }
