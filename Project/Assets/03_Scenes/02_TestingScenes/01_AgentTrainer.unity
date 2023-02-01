@@ -3304,7 +3304,7 @@ PrefabInstance:
         type: 3}
       propertyPath: agentPrefab
       value: 
-      objectReference: {fileID: 2440209296213475759, guid: c04434c0ae15745408c822ce5382f2be,
+      objectReference: {fileID: 7044824570948363244, guid: f928384f50ecbe045b294f9a24da5a77,
         type: 3}
     - target: {fileID: 5641276273235440444, guid: 1da7b17fe59056b42b3c32916547d108,
         type: 3}
@@ -3450,7 +3450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   min: 0.5
-  max: 1.5
+  max: 3
 --- !u!1 &688839150721840951
 GameObject:
   m_ObjectHideFlags: 0
