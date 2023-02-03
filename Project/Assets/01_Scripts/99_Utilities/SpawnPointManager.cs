@@ -38,12 +38,26 @@ public class SpawnPointManager : MonoBehaviour
         if(transforms.Count > 0)
         {
             this.transform.position = GetRandomSpawnPoint();
+            StopRigidbodyMovement(this.gameObject);
         }
         else
         {
             Debug.Log("NO SPAWN POINTS TO MOVE TO FOR " + gameObject.name);
         }
         
+    }
+
+
+    private void StopRigidbodyMovement(GameObject gameObject)
+    {
+        Rigidbody rigidbody = gameObject.GetComponent<Rigidbody>();
+        if (rigidbody != null)
+        {
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            //rigidbody.transform.position = Vector3.zero;
+            rigidbody.transform.rotation = Quaternion.identity;
+        }
     }
 
 }

@@ -745,6 +745,12 @@ PrefabInstance:
       propertyPath: AgentResponse.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3591890786131817547, guid: 66d79b18519fdd0418635eea67189714,
+        type: 3}
+      propertyPath: eventHitGoal
+      value: 
+      objectReference: {fileID: 11400000, guid: 9259da50360042440a2262e6bc14807f,
+        type: 2}
     - target: {fileID: 3591890786131817552, guid: 66d79b18519fdd0418635eea67189714,
         type: 3}
       propertyPath: m_RootOrder
@@ -2043,6 +2049,11 @@ PrefabInstance:
       propertyPath: agent
       value: 
       objectReference: {fileID: 2142657599}
+    - target: {fileID: 5641276272393981413, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: EncourageSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5641276272536647633, guid: 1da7b17fe59056b42b3c32916547d108,
         type: 3}
       propertyPath: m_SensorName
@@ -2107,6 +2118,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_DetectableTags.Array.data[4]
       value: ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 5641276273235440324, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: Display
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5641276273235440326, guid: 1da7b17fe59056b42b3c32916547d108,
         type: 3}
@@ -2225,6 +2241,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5641276273235440443, guid: 1da7b17fe59056b42b3c32916547d108,
         type: 3}
+      propertyPath: Display
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5641276273235440443, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
       propertyPath: agentPrefab
       value: 
       objectReference: {fileID: 7044824570948363244, guid: f928384f50ecbe045b294f9a24da5a77,
@@ -2254,6 +2275,12 @@ PrefabInstance:
       propertyPath: transforms.Array.data[3]
       value: 
       objectReference: {fileID: 1202478521}
+    - target: {fileID: 5641276273235440447, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 37f7d9718ee8ec94182a68762641f954,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1da7b17fe59056b42b3c32916547d108, type: 3}
 --- !u!4 &2142657598 stripped

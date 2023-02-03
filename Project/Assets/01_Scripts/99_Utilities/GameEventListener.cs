@@ -48,7 +48,10 @@ public class GameEventListener : MonoBehaviour
     public void RaiseEvent(AgentCore _agent)
     { 
         if(_agent == agent)
-            AgentResponse.Invoke(_agent); 
+            AgentResponse.Invoke(agent); 
+
+        if(agent == null)
+            AgentResponse.Invoke(_agent);
     }
 }
 

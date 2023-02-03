@@ -84,9 +84,10 @@ using Unity.MLAgents.Policies;
             }    
         }
 
-        public void UpdateAgent(int _agentInt)
+        public void UpdateAgent(GameObject _agentPrefab)
         {
-            //agentPrefab = agentList[_agentInt];
+            if(_agentPrefab != null)
+                agentPrefab = _agentPrefab;
         }
 
         public void ControlCheck()

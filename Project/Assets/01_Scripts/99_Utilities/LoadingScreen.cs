@@ -52,7 +52,7 @@ public class LoadingScreen : MonoBehaviour
         if (spawnAgentObj != null)
         {
             SpawnAgent spawnAgent = spawnAgentObj.GetComponent<SpawnAgent>();
-            spawnAgent.UpdateAgent(prefabNumberToTransfer);
+            //spawnAgent.UpdateAgent(prefabNumberToTransfer);
         }
     }
 

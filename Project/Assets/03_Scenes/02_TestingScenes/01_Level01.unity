@@ -1532,6 +1532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
+  StepCount: 0
+  EncourageSpeed: 0
 --- !u!114 &132302745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,6 +1565,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agent: {fileID: 0}
 --- !u!114 &132302746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1594,6 +1597,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agent: {fileID: 0}
 --- !u!4 &137239892 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4916942133827456, guid: 164dcfb2df080e1478ddfe053cf2b630,
@@ -7840,7 +7844,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591403088}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.13, y: 0, z: 12.95}
+  m_LocalPosition: {x: -0.13, y: 0, z: 30.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7866,6 +7870,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  Display: 0
   carDriver: {fileID: 591403091}
   _actionReceived: {fileID: 11400000, guid: af1fa25754e77414a97fca1c36a5059b, type: 2}
   _EpisodeRestart: {fileID: 11400000, guid: b291b91cb0ddc1b40a343e512de429c1, type: 2}
@@ -8037,6 +8042,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agent: {fileID: 0}
 --- !u!114 &591403094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8080,6 +8086,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agent: {fileID: 0}
 --- !u!114 &591403095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11194,6 +11201,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5641276272406691898}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &850244350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5641276273235440324, guid: 1da7b17fe59056b42b3c32916547d108,
+    type: 3}
+  m_PrefabInstance: {fileID: 5641276272406691898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf682d094f87854993b32d43a08dc03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &853708515
 GameObject:
   m_ObjectHideFlags: 0
@@ -13185,7 +13204,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940126045}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.7, y: 1.45, z: 0}
+  m_LocalPosition: {x: 32.38, y: 1.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13224,6 +13243,7 @@ MonoBehaviour:
   AgentResponse:
     m_PersistentCalls:
       m_Calls: []
+  agent: {fileID: 0}
 --- !u!1 &942390020 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7063504214675678822, guid: 095a9e4172aacde418b21a7fc118ad79,
@@ -15677,6 +15697,7 @@ MonoBehaviour:
   AgentResponse:
     m_PersistentCalls:
       m_Calls: []
+  agent: {fileID: 0}
 --- !u!1001 &1098193131
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74290,6 +74311,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 939410602}
     m_Modifications:
+    - target: {fileID: 5641276272393981402, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 850244350}
+    - target: {fileID: 5641276272393981403, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 850244350}
     - target: {fileID: 5641276272393981412, guid: 1da7b17fe59056b42b3c32916547d108,
         type: 3}
       propertyPath: object1
@@ -74300,6 +74331,11 @@ PrefabInstance:
       propertyPath: object2
       value: 
       objectReference: {fileID: 1184431273}
+    - target: {fileID: 5641276272393981413, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: EncourageSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5641276273235440326, guid: 1da7b17fe59056b42b3c32916547d108,
         type: 3}
       propertyPath: m_Name
@@ -74360,6 +74396,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5641276273235440440, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 850244350}
+    - target: {fileID: 5641276273235440441, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 850244350}
+    - target: {fileID: 5641276273235440443, guid: 1da7b17fe59056b42b3c32916547d108,
+        type: 3}
+      propertyPath: agentPrefab
+      value: 
+      objectReference: {fileID: 7044824570948363244, guid: f928384f50ecbe045b294f9a24da5a77,
+        type: 3}
     - target: {fileID: 5641276273235440446, guid: 1da7b17fe59056b42b3c32916547d108,
         type: 3}
       propertyPath: transforms.Array.data[0]
@@ -75105,7 +75157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7277637245297854130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13, y: 0, z: -14.98}
+  m_LocalPosition: {x: -0.13, y: 0, z: -29.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75207,12 +75259,12 @@ PrefabInstance:
     - target: {fileID: 3591890786131817552, guid: 66d79b18519fdd0418635eea67189714,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.12
+      value: -8.91
       objectReference: {fileID: 0}
     - target: {fileID: 3591890786131817552, guid: 66d79b18519fdd0418635eea67189714,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 100
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3591890786131817552, guid: 66d79b18519fdd0418635eea67189714,
         type: 3}
@@ -75385,6 +75437,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  Display: 0
   carDriver: {fileID: 5837810635751408374}
   _actionReceived: {fileID: 11400000, guid: af1fa25754e77414a97fca1c36a5059b, type: 2}
   _EpisodeRestart: {fileID: 11400000, guid: b291b91cb0ddc1b40a343e512de429c1, type: 2}
@@ -75431,6 +75484,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agent: {fileID: 0}
 --- !u!114 &7725840933960889704
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75462,6 +75516,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agent: {fileID: 0}
 --- !u!4 &7803846858116773103
 Transform:
   m_ObjectHideFlags: 0
@@ -75673,6 +75728,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agent: {fileID: 0}
 --- !u!114 &8328355165442963763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75704,6 +75760,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  agent: {fileID: 0}
 --- !u!114 &8328355165442963764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75717,6 +75774,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
+  StepCount: 0
+  EncourageSpeed: 0
 --- !u!114 &8328355165442963765
 MonoBehaviour:
   m_ObjectHideFlags: 0

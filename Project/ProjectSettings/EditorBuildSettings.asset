@@ -6,18 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/03_Scenes/01_CoreScenes/StartScreen_00.unity
+    path: Assets/03_Scenes/01_CoreScenes/00_StartScreen.unity
     guid: 32938299832bd5247910fee27e7c15e6
   - enabled: 1
-    path: Assets/03_Scenes/01_CoreScenes/Scene Testing/Scene_Sisabus_01.unity
-    guid: c3baf62da172d264fa73c13e0dd43736
+    path: Assets/03_Scenes/01_CoreScenes/01_AgentSelect.unity
+    guid: f31f1938d290a654eb7599081f700435
   - enabled: 1
-    path: Assets/03_Scenes/01_CoreScenes/Level_00.unity
-    guid: a3cecb01a207cf14a8605edea2005bf0
+    path: Assets/03_Scenes/01_CoreScenes/02_Display.unity
+    guid: 0b733840c1af2744fbab7da78bd8a749
   - enabled: 1
     path: Assets/03_Scenes/01_CoreScenes/LoadingScreen.unity
     guid: 278c50c069da9994f8e5012491f5b8dc
-  - enabled: 1
-    path: Assets/03_Scenes/01_CoreScenes/Level_00_AgentSelect.unity
-    guid: f31f1938d290a654eb7599081f700435
   m_configObjects: {}

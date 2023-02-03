@@ -11,6 +11,7 @@ using Sirenix.OdinInspector;
 public class AgentCore : Agent
 {
 
+    [SerializeField] private bool Display;
     
     [SerializeField]
     [Title("Agent Control Items")] 
@@ -21,10 +22,20 @@ public class AgentCore : Agent
     public GameEvent _EpisodeRestart;
 
 
+
+    /// TESTING ONLY - NEEDS TO BE REMOVED
+    public Team team;
+
+
+
     ////CORE AGENT ITEMS ---------------------------------------------------------- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     protected override void Awake()
     {
+        //This controls the Agent Academy - Turns off if TRUE!!!
+        if(Display)
+            CommunicatorFactory.Enabled = false;
+
         base.Awake(); 
     }
 
