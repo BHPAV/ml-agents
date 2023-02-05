@@ -46,6 +46,10 @@ using Unity.MLAgents.Policies;
 
                 //Create the model for the Agent to play with
                 car = Instantiate(agentPrefab,transform);
+
+                car.name = "Model";
+
+                //Update it's Positions and Parents
                 car.transform.parent = transform;
                 CarDriver carDriver = car.GetComponent<CarDriver>();
 
