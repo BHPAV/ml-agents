@@ -12,14 +12,15 @@ public class AgentCore : Agent
 {
 
     [SerializeField] private bool Display;
+    [SerializeField] private float CurrentReward;
     
     [SerializeField]
     [Title("Agent Control Items")] 
     private CarDriver carDriver;
 
     [Title("Agent Event Triggers")]
-    public GameEvent _actionReceived;
-    public GameEvent _EpisodeRestart;
+    public AgentEvent _actionReceived;
+    public AgentEvent _EpisodeRestart;
 
 
 
@@ -43,6 +44,11 @@ public class AgentCore : Agent
     public override void Initialize()
     {
 
+    }
+
+    public void FixedUpdate()
+    {
+        CurrentReward = GetCumulativeReward();
     }
 
 

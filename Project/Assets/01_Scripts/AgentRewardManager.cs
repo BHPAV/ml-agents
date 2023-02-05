@@ -24,7 +24,7 @@ public class AgentRewardManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        RewardSpeed();
+        //RewardSpeed();
     }
 
     public void RewardAgent(AgentCore _agent)
@@ -33,7 +33,7 @@ public class AgentRewardManager : MonoBehaviour
 
         if(_agent == agent)
         {
-            Debug.Log(_agent.gameObject.name + " Agent Rewarded");
+            //Debug.Log(_agent.gameObject.name + " Agent Rewarded");
             agent.ApplyReward(1.0f);
         }
     }
@@ -43,7 +43,7 @@ public class AgentRewardManager : MonoBehaviour
         if(_agent == agent)
         {
             agent.ApplyReward(-1.0f);
-            Debug.Log(_agent.gameObject.name + " Agent Punished");
+            //Debug.Log(_agent.gameObject.name + " Agent Punished");
         }
     }
 
@@ -54,13 +54,13 @@ public class AgentRewardManager : MonoBehaviour
 
         if(_agent == agent)
         {
-            Debug.Log(_agent.gameObject.name + " Agent Rewarded");
+            //Debug.Log(_agent.gameObject.name + " Agent Rewarded");
             agent.ApplyReward(1.0f);
         }
         else
         {
             agent.ApplyReward(-1.0f);
-            Debug.Log(_agent.gameObject.name + " Agent Punished");
+            //Debug.Log(_agent.gameObject.name + " Agent Punished");
         }
     }
 
@@ -73,6 +73,14 @@ public class AgentRewardManager : MonoBehaviour
             agent.ApplyReward(_reward);
         }
             
+    }
+
+    public void RequestEndEpisode(AgentCore _agent)
+    {
+        if(agent == _agent)
+        {
+            agent.EndEpisode();
+        }
     }
 
 }

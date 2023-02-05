@@ -12,24 +12,17 @@ using Sirenix.OdinInspector;
 
 public class AgentEventListener : MonoBehaviour
 {
-
     [Title("Triggering Event")]
-    [SerializeField] public AgentEvent _gameEvent;
-
-    [Title("Response Events")]
-    [FoldoutGroup("Response Events")]
-    [SerializeField] public UnityEvent _unityEvent;
+    [SerializeField] public AgentEvent _agentEvent;
 
     [FoldoutGroup("Response Events")]
-    [SerializeField] public AgentCoreEvent AgentResponse;
+    [SerializeField] public AgentCoreEvent Response;
 
 
-    void Awake() => _gameEvent.Register(this);
-    void OnAwake() => _gameEvent.Deregister(this);
-      
-    public void RaiseEvent() => _unityEvent.Invoke();  
-    public void RaiseEvent(AgentCore _agent){ AgentResponse.Invoke(_agent); }
-
+    void Awake() => _agentEvent.Register(this);
+    void OnAwake() => _agentEvent.Deregister(this);
+       
+    public void RaiseEvent(AgentCore _agent){ Response.Invoke(_agent); }
 }
 
 

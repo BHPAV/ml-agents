@@ -25,6 +25,7 @@ public class SpawnPointManager : MonoBehaviour
         if(transforms.Count > 0)
         {
             this.transform.position = GetRandomSpawnPoint();
+            StopRigidbodyMovement(this.gameObject);
         }
         else
         {
@@ -35,14 +36,18 @@ public class SpawnPointManager : MonoBehaviour
 
     public void MoveToRandomSpawnPosition(AgentCore _agent)
     {
-        if(transforms.Count > 0)
-        {
-            this.transform.position = GetRandomSpawnPoint();
-            StopRigidbodyMovement(this.gameObject);
-        }
-        else
-        {
-            Debug.Log("NO SPAWN POINTS TO MOVE TO FOR " + gameObject.name);
+        AgentCore agent = this.gameObject.GetComponent<AgentCore>(); 
+        if(agent == _agent)
+        {       
+            if(transforms.Count > 0)
+            {
+                this.transform.position = GetRandomSpawnPoint();
+                StopRigidbodyMovement(this.gameObject);
+            }
+            else
+            {
+                Debug.Log("NO SPAWN POINTS TO MOVE TO FOR " + gameObject.name);
+            }
         }
         
     }

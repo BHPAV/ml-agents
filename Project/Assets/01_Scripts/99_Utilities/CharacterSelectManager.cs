@@ -4,6 +4,12 @@ using UnityEngine;
 
 using UnityEngine.SceneManagement;
 
+using UnityEngine.Serialization;
+using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Sensors.Reflection;
+
+using Unity.Barracuda;
+
 public class CharacterSelectManager : MonoBehaviour
 {
     [SerializeField] private LoadingScreen Loading;
@@ -12,10 +18,11 @@ public class CharacterSelectManager : MonoBehaviour
     [SerializeField] private GameObject Agent3;
 
     public GameObject SelectedPrefab;
+    public NNModel SelectedNeuralNet;
 
     public GameObject foundAgent;
 
-
+    public AgentSelectManager ASM;
 
     private void Awake()
     {
@@ -35,7 +42,11 @@ public class CharacterSelectManager : MonoBehaviour
 
 
 
-
+    public void LoadPrefabs()
+    {
+        SelectedPrefab = ASM.m_SelectedModel;
+        SelectedNeuralNet = ASM.m_SelectedNeuralNet;
+    }
 
 
     public void SelectAgent(int _agentNumber)

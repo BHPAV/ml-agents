@@ -14,7 +14,34 @@ public class SisaBall : MonoBehaviour
     /// Don't need to manually set.
     /// </summary>
 
+    private SpawnPointManager spawnPointManager;
+
+    public AgentCore myAgent;
     public AgentCore lastTouched;
+
+
+    void Start()
+    {
+        spawnPointManager = GetComponent<SpawnPointManager>();
+    }
+
+
+    void Update()
+    {
+        if(transform.localPosition.y <= -5.0f)
+        {
+            FellOffLevel(myAgent);
+        }     
+    }
+
+
+    public void ResetBall(AgentCore _agent)
+    {
+        if(_agent == myAgent)
+        {
+            spawnPointManager.MoveToRandomSpawnPosition();
+        }
+    }
 
 
     ///COLLISIONS SECTION ----------------------------------------------------------------
@@ -37,7 +64,6 @@ public class SisaBall : MonoBehaviour
         {
             AgentCore _agentCore = col.gameObject.GetComponent<AgentCore>();
             HitAgent(_agentCore);
-            HitAgent();
         }
     }
 
@@ -55,28 +81,33 @@ public class SisaBall : MonoBehaviour
 
     ///EVENTS SECTION ----------------------------------------------------------------
     [Title("Events")]
-    public GameEvent eventHitGoal;
+    
     public GameEvent eventHitWall;
-    public GameEvent eventHitAgent;
+    
+    
+    public AgentEvent eventHitAgent;
 
-    public GameEvent eventFellOffLevel;
+
     
     
 
+
+    //Fall off Level Event
+    public AgentEvent agentEventFellOffLevel;
+    private void FellOffLevel(AgentCore _agent)
+    {
+        agentEventFellOffLevel?.Invoke(_agent);
+    }
+    
+    public AgentEvent agentScoredGoal;
     void HitGoal(AgentCore _agent)
     {
-        //_hitGoal?.Invoke();
-        eventHitGoal?.Invoke(_agent);
+        agentScoredGoal?.Invoke(_agent);
     }
 
     void HitWall()
     {
         //eventHitWall.Invoke();
-    }
-
-    void HitAgent()
-    {
-        eventHitAgent?.Invoke();
     }
 
     void HitAgent(AgentCore _agent)

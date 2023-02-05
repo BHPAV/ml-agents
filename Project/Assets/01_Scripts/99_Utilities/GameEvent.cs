@@ -14,12 +14,6 @@ public class GameEvent : ScriptableObject
             globalEventListener.RaiseEvent();
     }
 
-    public void Invoke(AgentCore _agent)
-    {
-        foreach (var globalEventListener in _listeners)
-            globalEventListener.RaiseEvent(_agent);
-    }
-
     public void Register(GameEventListener gameEventListener) => _listeners.Add(gameEventListener);
     public void Deregister(GameEventListener gameEventListener) => _listeners.Remove(gameEventListener);
 

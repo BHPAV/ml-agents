@@ -8,11 +8,11 @@ public class AgentEvent : ScriptableObject
     
     HashSet<AgentEventListener> _listeners = new HashSet<AgentEventListener>();
 
-    public void Invoke()
-    {
-        foreach (var globalEventListener in _listeners)
-            globalEventListener.RaiseEvent();
-    }
+    //public void Invoke()
+    //{
+    //    foreach (var globalEventListener in _listeners)
+    //        globalEventListener.RaiseEvent();
+    //}
 
     public void Invoke(AgentCore _agent)
     {
