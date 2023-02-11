@@ -19,7 +19,7 @@ public class SisaBall : MonoBehaviour
     public AgentCore myAgent;
     public AgentCore lastTouched;
 
-
+    ///REGULAR SECTION ----------------------------------------------------------------
     void Start()
     {
         spawnPointManager = GetComponent<SpawnPointManager>();
@@ -34,7 +34,7 @@ public class SisaBall : MonoBehaviour
         }     
     }
 
-
+    ///GAME EVENT SECTION ----------------------------------------------------------------
     public void ResetBall(AgentCore _agent)
     {
         if(_agent == myAgent)
@@ -45,13 +45,11 @@ public class SisaBall : MonoBehaviour
 
 
     ///COLLISIONS SECTION ----------------------------------------------------------------
-
     void OnCollisionEnter(Collision col)
     {
         // Touched goal.
         if (col.gameObject.CompareTag("goal"))
         {
-            Debug.Log("Goal Touch");
             HitGoal(lastTouched);
         }
 
@@ -67,7 +65,7 @@ public class SisaBall : MonoBehaviour
         }
     }
 
-    
+    ///TRIGGERS SECTION ----------------------------------------------------------------
     void OnTriggerEnter(Collider col)
     {
         // Touched goal.
@@ -82,40 +80,43 @@ public class SisaBall : MonoBehaviour
     ///EVENTS SECTION ----------------------------------------------------------------
     [Title("Events")]
     
-    public GameEvent eventHitWall;
-    
-    
-    public AgentEvent eventHitAgent;
-
-
-    
-    
-
-
-    //Fall off Level Event
+    //Fall off Level Event  --------------------------------------------
     public AgentEvent agentEventFellOffLevel;
     private void FellOffLevel(AgentCore _agent)
     {
         agentEventFellOffLevel?.Invoke(_agent);
     }
     
+
+    //BALL has hit a GOAL ----------------------------------------------
     public AgentEvent agentScoredGoal;
     void HitGoal(AgentCore _agent)
     {
         agentScoredGoal?.Invoke(_agent);
     }
 
+
+    //BALL has hit a WALL ----------------------------------------------
+    public GameEvent eventHitWall;
     void HitWall()
     {
         //eventHitWall.Invoke();
     }
 
+
+    //BALL has hit an AGENT --------------------------------------------
+    public AgentEvent eventHitAgent;
     void HitAgent(AgentCore _agent)
     {
         eventHitAgent.Invoke(_agent);
         lastTouched = _agent;
     }
 
+
+
+
+
+    /////// JUST FOR TESTING ----------------------------- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     public void TestMessage()
     {
         Debug.Log("BALL TOUCHED");
@@ -130,5 +131,6 @@ public class SisaBall : MonoBehaviour
     {
         Debug.Log("BALL TOUCHED BY " + _agent.gameObject.name);
     }
+    /////// JUST FOR TESTING ----------------------------- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
     
 }

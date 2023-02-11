@@ -72,7 +72,7 @@ public class CharacterSelectManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No agent found with tag 'agent'");
+            Debug.Log("No agent found with tag 'agent'");
         }
 
         JobDone();

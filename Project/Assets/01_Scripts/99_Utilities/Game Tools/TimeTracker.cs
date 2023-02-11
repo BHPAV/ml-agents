@@ -7,6 +7,8 @@ public class TimeTracker : MonoBehaviour
     private float startTime;
     public TextMeshPro timerText;
 
+    public TMP_Text timerTextUI;
+
     void Start()
     {
         startTime = Time.time;
@@ -21,6 +23,10 @@ public class TimeTracker : MonoBehaviour
         int minutes = (int)((elapsedTime % 3600) / 60);
         int seconds = (int)(elapsedTime % 60);
 
-        timerText.SetText(string.Format("{0:00}:{1:00}:{2:00}:{3:00}", days, hours, minutes, seconds));
+        if(timerText != null)
+            timerText.SetText(string.Format("{0:00}:{1:00}:{2:00}:{3:00}", days, hours, minutes, seconds));
+
+        if(timerTextUI != null)
+            timerTextUI.SetText(string.Format("{0:00}:{1:00}:{2:00}:{3:00}", days, hours, minutes, seconds));
     }
 }

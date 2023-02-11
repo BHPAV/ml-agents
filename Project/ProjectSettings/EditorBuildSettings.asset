@@ -9,18 +9,9 @@ EditorBuildSettings:
     path: Assets/03_Scenes/00_Completed/01_Production/00_StartScreen.unity
     guid: 32938299832bd5247910fee27e7c15e6
   - enabled: 1
-    path: Assets/03_Scenes/00_Completed/01_AgentSelect.unity
+    path: Assets/03_Scenes/00_Completed/01_Production/02_Display.unity
+    guid: f5613c9b05cd77549b3053dc645893a2
+  - enabled: 1
+    path: Assets/03_Scenes/00_Completed/01_Production/01_AgentSelect.unity
     guid: f31f1938d290a654eb7599081f700435
-  - enabled: 1
-    path: Assets/03_Scenes/00_Completed/02_Display.unity
-    guid: 0b733840c1af2744fbab7da78bd8a749
-  - enabled: 1
-    path: Assets/03_Scenes/02_Testing/NIU/LoadingScreen.unity
-    guid: 278c50c069da9994f8e5012491f5b8dc
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/03_Scenes/02_Testing/02x_TestingScenes/00_Completed Trainers/01_AgentTrainer_02_Display.unity
-    guid: 99ab51c3f1a8c5147bca5df68d46fd88
   m_configObjects: {}

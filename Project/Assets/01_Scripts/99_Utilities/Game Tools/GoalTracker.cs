@@ -8,6 +8,8 @@ public class GoalTracker : MonoBehaviour
     private float timeSinceLastIncrement = 0f;
     private bool canIncrement = true;
 
+    public TMP_Text TextUI;
+
 
     void Update() {
         if(!canIncrement) {
@@ -28,6 +30,11 @@ public class GoalTracker : MonoBehaviour
     }
 
     private void UpdateEventCountText(){
-        eventCountText.text = eventCount.ToString();
+        if(eventCountText != null)
+            eventCountText.text = eventCount.ToString();
+
+        if(TextUI != null)
+            TextUI.SetText(eventCount.ToString());
+        
     }
 }

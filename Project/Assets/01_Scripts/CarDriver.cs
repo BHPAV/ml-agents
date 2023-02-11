@@ -11,42 +11,58 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors.Reflection;
 
+
+using Sirenix.OdinInspector;
+
+
+
+
+
 public class CarDriver : MonoBehaviour
 {
-    //Custom Additions
-    public float m_MovementInputValue;
-    public float m_TurnInputValue;
-    public float m_BrakeInputValue;
-    public float m_BoostInputValue;
-    public float m_OtherInputValue;
+    //Custom Additions --- For Testing
+    [FoldoutGroup("Testing Values", expanded: false)]
+    public float    m_MovementInputValue,
+                    m_TurnInputValue,
+                    m_BrakeInputValue,
+                    m_BoostInputValue,
+                    m_OtherInputValue;
 
+    [FoldoutGroup("Testing Values")]
     public bool isBraking = false;
 
 
     //Public Variables
+    [FoldoutGroup("Wheel Control", expanded: false)]
     [Header("Wheel Colliders")]
     public List<WheelCollider> Front_Wheels; //The front wheels (Wheel Colliders)
+    [FoldoutGroup("Wheel Control")]
     public List<WheelCollider> Back_Wheels; //The rear wheels (Wheel Colliders)
 
     [Space(10)]
 
+    [FoldoutGroup("Wheel Control")]
     [Header("Wheel Transforms")]
     public List<Transform> Front_Wheel_Transforms; //The front wheel transforms
+    [FoldoutGroup("Wheel Control")]
     public List<Transform> Back_Wheel_Transforms; //The rear wheel transforms
 
     [Space(10)]
 
+    [FoldoutGroup("Wheel Control")]
     [Header("Wheel Transforms Rotations")]
     public List<Vector3> Front_Wheel_Rotation; //The front wheel rotation Vectors
+    [FoldoutGroup("Wheel Control")]
     public List<Vector3> Back_Wheel_Rotation; //The rear wheel rotation Vectors
 
-    [Space(15)]
 
+
+    [FoldoutGroup("Car Settings", expanded: false)]
     [Header("Car Settings")]
     public float Motor_Torque = 400; //Motor torque for the car
-    public float Max_Steer_Angle = 25f; //The Maximum Steer Angle for the front wheels
-    public float BrakeForce = 150f; //The brake force of the wheels
-    public float Maximum_Speed = 100f; //The top speed of the car
+    [FoldoutGroup("Car Settings")] public float Max_Steer_Angle = 25f; //The Maximum Steer Angle for the front wheels
+    [FoldoutGroup("Car Settings")] public float BrakeForce = 150f; //The brake force of the wheels
+    [FoldoutGroup("Car Settings")] public float Maximum_Speed = 100f; //The top speed of the car
 
     [Space(15)]
 
@@ -254,7 +270,8 @@ public class CarDriver : MonoBehaviour
         if(rb == null)
         {
             rb = GetComponent<Rigidbody>(); //get rigidbody
-            rb.centerOfMass = Center_of_Mass.localPosition; //Set the centre of mass of the rigid body to the centre of mass transform
+            SetRigidbody(rb);
+            //rb.centerOfMass = Center_of_Mass.localPosition; //Set the centre of mass of the rigid body to the centre of mass transform
         }
         
         
@@ -834,6 +851,25 @@ public class CarDriver : MonoBehaviour
             isBraking = false;
         }
             
+    }
+
+
+    //This is the targeted function that FiveInputManager is looking for.
+    public void ReceiveInput(float forwardAmount, float turnAmount, float breakAction, float boostAction, float otherAction)  
+    {
+        this.m_MovementInputValue = forwardAmount;
+        this.m_TurnInputValue = turnAmount;
+
+        this.m_BrakeInputValue = breakAction;
+        this.m_BoostInputValue = boostAction;
+        this.m_OtherInputValue = otherAction;
+
+        if(m_BrakeInputValue != 0.0f){
+            isBraking = true;
+        }
+        else {
+            isBraking = false;
+        }    
     }
 
 
