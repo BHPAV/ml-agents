@@ -3,10 +3,7 @@ using Sirenix.OdinInspector;
 
 public class WheelControl : MonoBehaviour
 {
-    // Constants
-    private const float SkidThreshold = 0.9f;
-    private const float RPMThreshold = 10f;
-
+    
     // Model game object
     [Title("Model")]
     [Tooltip("The visual representation of the wheel.")]
@@ -29,6 +26,16 @@ public class WheelControl : MonoBehaviour
 
 
 
+    //Particles
+    public TrailRenderer skidTrail;
+    public ParticleSystem smoke;
+
+    // Constants
+    [SerializeField] private float SkidThreshold = 0.8f;
+    [SerializeField] private float RPMThreshold = 5.0f;
+
+    public bool Skidding;
+    public bool Grounded;
 
 
 
@@ -39,8 +46,7 @@ public class WheelControl : MonoBehaviour
         {
             GetWheelCollider();
             GetWheelModel();
-            //Debug.LogError("Wheel collider is not assigned.");
-            //return;
+            GetEffects();
         }
 
         // Enable/disable steering capability based on the "canSteer" bool
@@ -50,6 +56,7 @@ public class WheelControl : MonoBehaviour
     private void Update()
     {
         // Check if the model game object is null
+        /*
         if (model == null)
         {
             Debug.LogError("Model is not assigned.");
@@ -58,6 +65,23 @@ public class WheelControl : MonoBehaviour
 
         // Rotate the visual model based on the position of the wheel collider
         model.transform.rotation = wheelCollider.transform.rotation;
+        */
+
+        //TESTING UPDATES
+        Grounded = IsGrounded();
+        Skidding = IsSkidding();
+
+        EffectCheck();
+    }
+
+    private void GetEffects()
+    {
+        Transform fxTransform = transform.Find("FX");
+        if (fxTransform != null)
+        {
+            skidTrail = fxTransform.GetComponent<TrailRenderer>();
+            smoke = fxTransform.GetComponent<ParticleSystem>();
+        }
     }
 
     private void GetWheelCollider()
@@ -151,4 +175,34 @@ public class WheelControl : MonoBehaviour
         wheelCollider.GetGroundHit(out hit);
         return Mathf.Abs(hit.sidewaysSlip) >= SkidThreshold || (Mathf.Abs(hit.forwardSlip) >= SkidThreshold && wheelCollider.rpm > RPMThreshold);
     }
+
+
+    [Title("Smoking")]
+    public bool IsSmoking()
+    {
+        // Check if the wheel collider is null
+        if (wheelCollider == null)
+        {
+            Debug.LogError("Wheel collider is not assigned.");
+            return false;
+        }
+
+        // Check if the wheel is skidding
+        WheelHit hit;
+        wheelCollider.GetGroundHit(out hit);
+        return Mathf.Abs(hit.sidewaysSlip) >= SkidThreshold || (Mathf.Abs(hit.forwardSlip) >= SkidThreshold && wheelCollider.rpm > RPMThreshold);
+    }
+
+
+
+    private void EffectCheck()
+    {
+        if(IsSkidding() && IsGrounded())
+            skidTrail.emitting = true;
+        else    
+            skidTrail.emitting = false;
+    }
+
+    
+    
 }

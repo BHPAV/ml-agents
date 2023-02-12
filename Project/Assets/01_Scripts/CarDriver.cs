@@ -418,7 +418,7 @@ public class CarDriver : MonoBehaviour
             }
 
             //DRIFT SMOKE ------------------------
-
+            /*
             if(wheelHit.sidewaysSlip < 0.5f && wheelHit.sidewaysSlip > -0.5f)
             	playPauseSmoke = false;
             else    
@@ -429,7 +429,7 @@ public class CarDriver : MonoBehaviour
             	playPauseBurnout = false;
             else    
                 playPauseBurnout = true;
-
+            */
         }
 
         foreach(WheelCollider Wheel in Front_Wheels){

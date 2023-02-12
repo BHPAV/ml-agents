@@ -173,7 +173,7 @@ public class AgentCore : Agent
             case 1: otherAction = +1f; break;
         }
 
-        carDriver.SetInputs5(forwardAmount, turnAmount, breakAction, boostAction, otherAction);
+        carDriver.ReceiveInput(forwardAmount, turnAmount, breakAction, boostAction, otherAction);
         ///// END CAR WORKINGS --------------  
     }
 
