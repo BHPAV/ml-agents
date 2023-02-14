@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00bd918b6279418469653537894051d4, type: 3}
+  m_Name: VD_Van_00
+  m_EditorClassIdentifier: 
+  dataName: Van_Test00
+  m_Body: {fileID: 1362527481048236, guid: 34b47474840629b4aacc04796669fe93, type: 3}
+  m_Wheel: {fileID: 5802497645170552254, guid: 224bbd67d974df94ba7ae05a8230d1cb, type: 3}
+  centerOfGravity: {x: 0, y: 0, z: 0}
+  wheelPositions:
+  - {x: -0.286, y: 0.05, z: 0.435}
+  - {x: 0.286, y: 0.05, z: 0.435}
+  - {x: -0.286, y: 0.05, z: -0.4125}
+  - {x: 0.286, y: 0.05, z: -0.4125}
+  mass: 1500
+  motorTorque: 0
+  maxSteerAngle: 0
+  brakeForce: 0
+  maximumSpeed: 0

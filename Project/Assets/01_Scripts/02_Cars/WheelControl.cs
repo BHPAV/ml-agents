@@ -7,12 +7,13 @@ public class WheelControl : MonoBehaviour
     // Model game object
     [Title("Model")]
     [Tooltip("The visual representation of the wheel.")]
-    private GameObject model;
+    [SerializeField] private GameObject model;
 
     // Wheel collider component
     [Title("Wheel Collider")]
     [Tooltip("The collider component for the wheel.")]
-    private WheelCollider wheelCollider;
+    [SerializeField] private WheelCollider wheelCollider;
+    [SerializeField] private Quaternion wheelRotation ;
 
     // Steering capability
     [Title("Steering")]
@@ -48,30 +49,31 @@ public class WheelControl : MonoBehaviour
             GetWheelModel();
             GetEffects();
         }
-
-        // Enable/disable steering capability based on the "canSteer" bool
-        wheelCollider.steerAngle = canSteer ? 30f : 0f;
     }
 
     private void Update()
     {
-        // Check if the model game object is null
         /*
+        // Check if the model game object is null
         if (model == null)
         {
             Debug.LogError("Model is not assigned.");
             return;
         }
+        
 
         // Rotate the visual model based on the position of the wheel collider
         model.transform.rotation = wheelCollider.transform.rotation;
-        */
+        
 
         //TESTING UPDATES
         Grounded = IsGrounded();
         Skidding = IsSkidding();
 
         EffectCheck();
+
+        wheelRotation = wheelCollider.transform.rotation;
+        */
     }
 
     private void GetEffects()
@@ -135,10 +137,6 @@ public class WheelControl : MonoBehaviour
         {
             wheelCollider.motorTorque = torque;
         }
-        else
-        {
-            wheelCollider.motorTorque = 0f;
-        }
     }
 
 
@@ -201,6 +199,13 @@ public class WheelControl : MonoBehaviour
             skidTrail.emitting = true;
         else    
             skidTrail.emitting = false;
+    }
+
+
+
+    private void WheelRotation()
+    {
+
     }
 
     

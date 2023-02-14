@@ -11,12 +11,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors.Reflection;
 
-
 using Sirenix.OdinInspector;
-
-
-
-
 
 public class CarDriver : MonoBehaviour
 {
@@ -30,6 +25,10 @@ public class CarDriver : MonoBehaviour
 
     [FoldoutGroup("Testing Values")]
     public bool isBraking = false;
+
+    [FoldoutGroup("Testing Values")]
+    public bool isFWD = false;
+    
 
 
     //Public Variables
@@ -54,6 +53,7 @@ public class CarDriver : MonoBehaviour
     public List<Vector3> Front_Wheel_Rotation; //The front wheel rotation Vectors
     [FoldoutGroup("Wheel Control")]
     public List<Vector3> Back_Wheel_Rotation; //The rear wheel rotation Vectors
+    private List<WheelCollider> Driving_Wheels; //The wheels that the power comes from.
 
 
 
@@ -318,6 +318,13 @@ public class CarDriver : MonoBehaviour
             Horn_Source.gameObject.SetActive(false); 
             Engine_Sound.gameObject.SetActive(false);
         }
+
+
+        //Check what sort of drivetrain the car has
+        if(isFWD)
+            Driving_Wheels = Front_Wheels;
+        else  
+            Driving_Wheels = Back_Wheels;
     }
 
     public void FixedUpdate(){
@@ -353,9 +360,15 @@ public class CarDriver : MonoBehaviour
             Turn_Off_Headlights();//turn the headlights off
         }
 
+
+        /// DRIVING and POWER -----------------------------------------------
+        Accelerate();
+
+        /*
         //Applying Maximum Speed
         if(Car_Speed_In_KPH < Maximum_Speed && Car_Started){ //if the car's current speed is less than the maximum speed
             //Let car move forward and backward
+                    
             foreach(WheelCollider Wheel in Back_Wheels){
                 //Wheel.motorTorque = Input.GetAxis("Vertical") * ((Motor_Torque * 5)/(Back_Wheels.Count + Front_Wheels.Count));
                 Wheel.motorTorque = m_MovementInputValue * ((Motor_Torque * 5)/(Back_Wheels.Count + Front_Wheels.Count));
@@ -368,14 +381,7 @@ public class CarDriver : MonoBehaviour
                 Wheel.motorTorque = 0;
             }
         }
-
-        //Making The Car Turn/Steer
-        if(Car_Started){
-            foreach(WheelCollider Wheel in Front_Wheels){
-                //Wheel.steerAngle = Input.GetAxis("Horizontal") * Max_Steer_Angle; //Turn the wheels
-                Wheel.steerAngle = m_TurnInputValue * Max_Steer_Angle; //Turn the wheels
-            }
-        }
+        */
 
         //Changing speed of the car
         Car_Speed_KPH = Car_Rigidbody.velocity.magnitude * 3.6f; //Calculate car speed in KPH
@@ -384,6 +390,17 @@ public class CarDriver : MonoBehaviour
         Car_Speed_In_KPH = (int) Car_Speed_KPH; //Convert the float values of the speed to int
         Car_Speed_In_MPH = (int) Car_Speed_MPH; //Convert the float values of the speed to int
 
+
+        /// STEERING -----------------------------------------------
+        //Making The Car Turn/Steer
+        if(Car_Started){
+            foreach(WheelCollider Wheel in Front_Wheels){
+                //Wheel.steerAngle = Input.GetAxis("Horizontal") * Max_Steer_Angle; //Turn the wheels
+                Wheel.steerAngle = m_TurnInputValue * Max_Steer_Angle; //Turn the wheels
+            }
+        }
+
+
         //Make Car Boost
         if(Input.GetKeyDown(Boost_KeyCode) && Car_Started && Next_Boost_Time < Time.time){
             //BOOST CAR
@@ -391,6 +408,7 @@ public class CarDriver : MonoBehaviour
             Next_Boost_Time = Time.time + Boost_Cooldown; //The cooldown for the car
         }
 
+        /// DRIFTING -----------------------------------------------
         //Make Car Drift
         WheelHit wheelHit;
 
@@ -466,6 +484,27 @@ public class CarDriver : MonoBehaviour
         if((Input.GetAxis("Vertical") > 0) && Car_Started){
             //Turn off reverse light(s)
             Turn_Off_ReverseLights();
+        }
+    }
+
+
+    private void Accelerate()
+    {
+        //Applying Maximum Speed
+        if(Car_Speed_In_KPH < Maximum_Speed && Car_Started){ //if the car's current speed is less than the maximum speed
+            //Let car move forward and backward
+                    
+            foreach(WheelCollider Wheel in Driving_Wheels){
+                //Wheel.motorTorque = Input.GetAxis("Vertical") * ((Motor_Torque * 5)/(Back_Wheels.Count + Front_Wheels.Count));
+                Wheel.motorTorque = m_MovementInputValue * ((Motor_Torque * 5)/(Back_Wheels.Count + Front_Wheels.Count));
+            }
+        }
+
+        if(Car_Speed_In_KPH > Maximum_Speed && Car_Started){ //if the car's current speed is more than the top speed
+            //Don't let the car accelerate anymore so it does not exceed the maximum speed
+            foreach(WheelCollider Wheel in Driving_Wheels){
+                Wheel.motorTorque = 0;
+            }
         }
     }
 

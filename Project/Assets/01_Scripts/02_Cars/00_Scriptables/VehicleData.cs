@@ -24,11 +24,11 @@ public class VehicleData : ScriptableObject
 
     [BoxGroup("Vehicle Info")]
     [LabelText("Center of Gravity")]
-    public Transform centerOfGravity;
+    public Vector3 centerOfGravity;
 
     [BoxGroup("Vehicle Info")]
     [LabelText("Wheel Positions")]
-    public List<Transform> wheelPositions;
+    public List<Vector3> wheelPositions;
 
     [BoxGroup("Vehicle Physics")]
     [LabelText("Mass (kg)")]

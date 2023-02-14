@@ -4,6 +4,7 @@ using UnityEngine;
 
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
+using Unity.MLAgents.Policies;
 using Unity.MLAgents.Sensors.Reflection;
 
 using Sirenix.OdinInspector;
@@ -26,16 +27,30 @@ public class AgentCore : Agent
 
     /// TESTING ONLY - NEEDS TO BE REMOVED
     public Team team;
-
+    public Vector3 initialPos;
+    public float rotSign;
+    float m_Existential;
+    BehaviorParameters m_BehaviorParameters;
+    EnvironmentParameters m_ResetParams;
+    float m_BallTouch;
 
 
     ////CORE AGENT ITEMS ---------------------------------------------------------- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     protected override void Awake()
     {
+
+        //SOCCER TRAINING initialPos = this.transform.parent.localPosition;
+
         //This controls the Agent Academy - Turns off if TRUE!!!
         if(Display)
+        {
             CommunicatorFactory.Enabled = false;
+        }
+        else
+        {
+            initialPos = this.transform.parent.localPosition;
+        }
 
         base.Awake(); 
     }
@@ -43,7 +58,47 @@ public class AgentCore : Agent
 
     public override void Initialize()
     {
+        //Soccer Training Entry
+        SneakyInitialize();
+    }
 
+    public void CollisionWithBallReward()
+    {
+        AddReward(.2f * m_BallTouch);
+    }
+
+
+    private void SneakyInitialize()
+    {
+        SoccerVanEnvController envController = GetComponentInParent<SoccerVanEnvController>();
+        if (envController != null)
+        {
+            m_Existential = 1f / envController.MaxEnvironmentSteps;
+        }
+        else
+        {
+            m_Existential = 1f / MaxStep;
+        }
+
+        m_BehaviorParameters = gameObject.GetComponent<BehaviorParameters>();
+        if (m_BehaviorParameters.TeamId == (int)Team.Blue)
+        {
+            team = Team.Blue;
+            initialPos = new Vector3(transform.localPosition.x - 5f, .5f, transform.localPosition.z);
+            rotSign = 1f;
+        }
+        else
+        {
+            team = Team.Purple;
+            initialPos = new Vector3(transform.localPosition.x + 5f, .5f, transform.localPosition.z);
+            rotSign = -1f;
+        }
+        
+
+        //agentRb = GetComponent<Rigidbody>();
+        //agentRb.maxAngularVelocity = 500;
+
+        m_ResetParams = Academy.Instance.EnvironmentParameters;
     }
 
     public void FixedUpdate()
@@ -105,6 +160,8 @@ public class AgentCore : Agent
     /// </summary>
     public override void OnEpisodeBegin()
     {
+        m_BallTouch = m_ResetParams.GetWithDefault("ball_touch", 0);          //SOCCER TRAINING
+
         //Let everyone know the episode is restarting.
         _EpisodeRestart?.Invoke(this);
     }

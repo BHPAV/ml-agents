@@ -1019,6 +1019,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 422945125}
   m_CullTransparentMesh: 0
+--- !u!1 &436565582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 436565583}
+  - component: {fileID: 436565584}
+  m_Layer: 0
+  m_Name: Spawner_VAN
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &436565583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436565582}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3287754143041190699}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &436565584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436565582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7927af81da1cf45b71f48764dfd4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: TESTBOI 2000
+  agentModel: {fileID: 1704922310664432096, guid: 9a30c047d7958624695e9c0465484795,
+    type: 3}
+  agentSensorSuite: {fileID: 2556179286666657878, guid: 8f6840d1052ab2145b17b7c68a6fb1fd,
+    type: 3}
 --- !u!1 &494033387
 GameObject:
   m_ObjectHideFlags: 0
@@ -5994,6 +6043,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ManualControl: 0
+--- !u!1 &1650477066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1650477067}
+  - component: {fileID: 1650477068}
+  m_Layer: 0
+  m_Name: Spawner_CAR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1650477067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650477066}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3287754143041190699}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1650477068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650477066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7927af81da1cf45b71f48764dfd4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: TESTBOI 2000
+  agentModel: {fileID: 1704922310664432096, guid: ebda5e9e3c94d0f47b3588ab9162d712,
+    type: 3}
+  agentSensorSuite: {fileID: 2556179286666657878, guid: 8f6840d1052ab2145b17b7c68a6fb1fd,
+    type: 3}
 --- !u!1 &1674041569
 GameObject:
   m_ObjectHideFlags: 0
@@ -6905,6 +7003,55 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1900462655}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1936284755
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1936284756}
+  - component: {fileID: 1936284757}
+  m_Layer: 0
+  m_Name: Spawner_BUS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1936284756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936284755}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3287754143041190699}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1936284757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936284755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe7927af81da1cf45b71f48764dfd4ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentName: TESTBOI 2000
+  agentModel: {fileID: 9197342973089473363, guid: 7d76d9734e2df93408d9eba6d5862cd0,
+    type: 3}
+  agentSensorSuite: {fileID: 2556179286666657878, guid: 8f6840d1052ab2145b17b7c68a6fb1fd,
+    type: 3}
 --- !u!1 &1963122024
 GameObject:
   m_ObjectHideFlags: 0
@@ -7514,6 +7661,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 08c2e56c26a450c4d8f80ffd9e7372e4,
         type: 2}
+    - target: {fileID: 7839206640131871239, guid: b9ecd9d4e2313aa4288a47f8eb4ca1a1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7839206640131871738, guid: b9ecd9d4e2313aa4288a47f8eb4ca1a1,
+        type: 3}
+      propertyPath: agentPrefab
+      value: 
+      objectReference: {fileID: 9197342973089473363, guid: 7d76d9734e2df93408d9eba6d5862cd0,
+        type: 3}
     - target: {fileID: 8788139410928497139, guid: b9ecd9d4e2313aa4288a47f8eb4ca1a1,
         type: 3}
       propertyPath: m_IsActive

@@ -369,8 +369,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214392903162671045}
-  m_LocalRotation: {x: 0.6049195, y: -7.2759567e-12, z: -5.453415e-12, w: -0.79628664}
-  m_LocalPosition: {x: -0.28000054, y: 0.053149227, z: 0.5000004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.2800002, y: 0.100000024, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -475,6 +475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730d3f8a5ecff39428185241f892e512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 0}
+  wheelCollider: {fileID: 0}
+  wheelRotation: {x: 0, y: 0, z: 0, w: 0}
   canSteer: 0
   canPower: 1
   skidTrail: {fileID: 0}
@@ -582,6 +585,7 @@ MonoBehaviour:
   m_BoostInputValue: 0
   m_OtherInputValue: 0
   isBraking: 0
+  isFWD: 1
   Front_Wheels:
   - {fileID: 3169388928300203749}
   - {fileID: 457058358428949797}
@@ -924,10 +928,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730d3f8a5ecff39428185241f892e512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 0}
+  wheelCollider: {fileID: 0}
+  wheelRotation: {x: 0, y: 0, z: 0, w: 0}
   canSteer: 0
   canPower: 1
-  skidTrail: {fileID: 0}
-  smoke: {fileID: 0}
+  skidTrail: {fileID: 6912149702953010313}
+  smoke: {fileID: 6912149702953010318}
   SkidThreshold: 0.9
   RPMThreshold: 10
   Skidding: 0
@@ -994,6 +1001,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730d3f8a5ecff39428185241f892e512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 0}
+  wheelCollider: {fileID: 0}
+  wheelRotation: {x: 0, y: 0, z: 0, w: 0}
   canSteer: 1
   canPower: 0
   skidTrail: {fileID: 0}
@@ -1220,7 +1230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6912149702583258039}
   m_LocalRotation: {x: 3.5527133e-15, y: 1, z: 6.231723e-12, w: 0}
-  m_LocalPosition: {x: -0.30000016, y: 0, z: 0.66000056}
+  m_LocalPosition: {x: -0.28, y: -0.02, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20877,10 +20887,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 730d3f8a5ecff39428185241f892e512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 0}
+  wheelCollider: {fileID: 0}
+  wheelRotation: {x: 0, y: 0, z: 0, w: 0}
   canSteer: 1
   canPower: 0
-  skidTrail: {fileID: 0}
-  smoke: {fileID: 0}
+  skidTrail: {fileID: 6912149702583258035}
+  smoke: {fileID: 6912149702583258034}
   SkidThreshold: 0.9
   RPMThreshold: 10
   Skidding: 0
