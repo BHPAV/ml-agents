@@ -21,6 +21,7 @@ public class SoccerVanEnvController : MonoBehaviour
     /// Max Academy steps before this platform resets
     /// </summary>
     /// <returns></returns>
+    public bool Training = true;
     [Tooltip("Max Environment Steps")] public int MaxEnvironmentSteps = 25000;
 
     /// <summary>
@@ -49,44 +50,50 @@ public class SoccerVanEnvController : MonoBehaviour
 
     void Start()
     {
-
-        m_SoccerSettings = FindObjectOfType<SoccerSettings>();
-        // Initialize TeamManager
-        m_BlueAgentGroup = new SimpleMultiAgentGroup();
-        m_PurpleAgentGroup = new SimpleMultiAgentGroup();
-        ballRb = ball.GetComponent<Rigidbody>();
-        m_BallStartingPos = new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z);
-        
-        foreach (var item in AgentsList)
+        if(Training)
         {
-            GameObject _parent = item.Agent.transform.parent.gameObject;
-
-            item.StartingPos = _parent.transform.position;
-            item.StartingRot = _parent.transform.rotation;
-
-            item.Rb = _parent.GetComponent<Rigidbody>();
+            m_SoccerSettings = FindObjectOfType<SoccerSettings>();
+            // Initialize TeamManager
+            m_BlueAgentGroup = new SimpleMultiAgentGroup();
+            m_PurpleAgentGroup = new SimpleMultiAgentGroup();
+            ballRb = ball.GetComponent<Rigidbody>();
+            m_BallStartingPos = new Vector3(ball.transform.position.x, ball.transform.position.y, ball.transform.position.z);
             
-            if (item.Agent.team == Team.Blue)
+            foreach (var item in AgentsList)
             {
-                m_BlueAgentGroup.RegisterAgent(item.Agent);
-            }
-            else
-            {
-                m_PurpleAgentGroup.RegisterAgent(item.Agent);
-            }
-        }
+                GameObject _parent = item.Agent.transform.parent.gameObject;
 
-        ResetScene();
+                item.StartingPos = _parent.transform.position;
+                item.StartingRot = _parent.transform.rotation;
+
+                item.Rb = _parent.GetComponent<Rigidbody>();
+                
+                if (item.Agent.team == Team.Blue)
+                {
+                    m_BlueAgentGroup.RegisterAgent(item.Agent);
+                }
+                else
+                {
+                    m_PurpleAgentGroup.RegisterAgent(item.Agent);
+                }
+            }
+
+            ResetScene();
+        }
+        
     }
 
     void FixedUpdate()
     {
-        m_ResetTimer += 1;
-        if (m_ResetTimer >= MaxEnvironmentSteps && MaxEnvironmentSteps > 0)
+        if(Training)
         {
-            m_BlueAgentGroup.GroupEpisodeInterrupted();
-            m_PurpleAgentGroup.GroupEpisodeInterrupted();
-            ResetScene();
+            m_ResetTimer += 1;
+            if (m_ResetTimer >= MaxEnvironmentSteps && MaxEnvironmentSteps > 0)
+            {
+                m_BlueAgentGroup.GroupEpisodeInterrupted();
+                m_PurpleAgentGroup.GroupEpisodeInterrupted();
+                ResetScene();
+            }
         }
     }
 
@@ -104,19 +111,22 @@ public class SoccerVanEnvController : MonoBehaviour
 
     public void GoalTouched(Team scoredTeam)
     {
-        if (scoredTeam == Team.Blue)
+        if(Training)
         {
-            m_BlueAgentGroup.AddGroupReward(1 - (float)m_ResetTimer / MaxEnvironmentSteps);
-            m_PurpleAgentGroup.AddGroupReward(-1);
+            if (scoredTeam == Team.Blue)
+            {
+                m_BlueAgentGroup.AddGroupReward(1 - (float)m_ResetTimer / MaxEnvironmentSteps);
+                m_PurpleAgentGroup.AddGroupReward(-1);
+            }
+            else
+            {
+                m_PurpleAgentGroup.AddGroupReward(1 - (float)m_ResetTimer / MaxEnvironmentSteps);
+                m_BlueAgentGroup.AddGroupReward(-1);
+            }
+            m_PurpleAgentGroup.EndGroupEpisode();
+            m_BlueAgentGroup.EndGroupEpisode();
+            ResetScene();
         }
-        else
-        {
-            m_PurpleAgentGroup.AddGroupReward(1 - (float)m_ResetTimer / MaxEnvironmentSteps);
-            m_BlueAgentGroup.AddGroupReward(-1);
-        }
-        m_PurpleAgentGroup.EndGroupEpisode();
-        m_BlueAgentGroup.EndGroupEpisode();
-        ResetScene();
 
     }
 
@@ -130,14 +140,15 @@ public class SoccerVanEnvController : MonoBehaviour
         {
             GameObject _parent = item.Agent.transform.parent.gameObject;
 
-            var randomPosX = Random.Range(-5f, 5f);
-            var newStartPos = item.Agent.initialPos + new Vector3(randomPosX, 0f, 0f);
+            var randomPosX = Random.Range(-2.5f, 2.5f);
+            var randomPosZ = Random.Range(-2.5f, 2.5f);
+            var newStartPos = item.Agent.initialPos + new Vector3(randomPosX, 0f, randomPosZ);
             var rot = item.Agent.rotSign * Random.Range(80.0f, 100.0f);
             var newRot = Quaternion.Euler(0, rot, 0);
             
             //_parent.transform.SetPositionAndRotation(newStartPos, newRot);
             _parent.transform.localPosition = newStartPos;
-            _parent.transform.rotation = newRot;
+            _parent.transform.rotation = item.StartingRot;
 
             item.Rb.velocity = Vector3.zero;
             item.Rb.angularVelocity = Vector3.zero;

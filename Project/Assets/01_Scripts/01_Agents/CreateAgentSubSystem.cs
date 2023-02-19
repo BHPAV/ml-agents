@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateAgent : MonoBehaviour
+public class CreateAgentSubSystem
 {
     public string agentName = "Agent Name";
 
@@ -11,29 +11,20 @@ public class CreateAgent : MonoBehaviour
 
     private GameObject model;
 
-    void Start()
+    public CreateAgentSubSystem(GameObject _agentModel, GameObject _agentSensorSuite)
     {
-        CreateTheAgent();
-        NameAgent(agentName);
+        agentModel = _agentModel;
+        agentSensorSuite = _agentSensorSuite;
     }
 
-
-
-    //Create Agent
-    private void CreateTheAgent()
+    public void CreateTheAgent()
     {
-        CreateAgentSubSystem _agent = new CreateAgentSubSystem(agentModel, agentSensorSuite);
-        _agent.CreateTheAgent();
-
-        model = _agent.GetModel();
-
-        /*
         // Instantiate the first GameObject
-        GameObject parentObject = Instantiate(agentModel, this.transform.position, Quaternion.identity);
+        GameObject parentObject = Object.Instantiate(agentModel, Vector3.zero, Quaternion.identity);
         model = parentObject;
 
         // Instantiate the second GameObject as a child of the first
-        GameObject childObject = Instantiate(agentSensorSuite, this.transform.position, Quaternion.identity);
+        GameObject childObject = Object.Instantiate(agentSensorSuite, Vector3.zero, Quaternion.identity);
         childObject.transform.SetParent(parentObject.transform);
 
         //Assign the Agent Core with the CarDriver control
@@ -43,14 +34,17 @@ public class CreateAgent : MonoBehaviour
 
 
         //Assign the Agent Object to the same Parent as the Spawner
-        model.transform.SetParent(transform.parent);
-        */
-
+        //model.transform.SetParent(GameObject.Find("Agents").transform);
     }
 
 
-    //Change the Cloned Prefab Name
-    private void NameAgent(string _name)
+    public GameObject GetModel()
+    {
+        return model;
+    }
+
+
+    public void NameAgent(string _name)
     {
         model.name = _name;
     }

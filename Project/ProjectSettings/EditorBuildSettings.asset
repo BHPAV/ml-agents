@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/03_Scenes/00_Completed/01_Production/01_AgentSelect.unity
     guid: f31f1938d290a654eb7599081f700435
+  - enabled: 1
+    path: Assets/03_Scenes/00_Completed/01_Production/03_SoccerGame.unity
+    guid: 2a15ff869e5b182438a0d6a9c18b3351
+  - enabled: 1
+    path: Assets/03_Scenes/00_Completed/01_Production/03_SoccerAgentSelect.unity
+    guid: 53eb9f47fe518904aacd02ac7ce79040
   m_configObjects: {}
