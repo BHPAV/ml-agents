@@ -1,5 +1,10 @@
+
+using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+
+using TMPro;
 
 public class SoccerGameManager : MonoBehaviour
 {
@@ -14,16 +19,33 @@ public class SoccerGameManager : MonoBehaviour
     public List<Transform> Team1SpawnPoints; // a list of spawn points for team 1
     public List<Transform> Team2SpawnPoints; // a list of spawn points for team 2
 
-    private List<GameObject> team1GameObjects = new List<GameObject>();
-    private List<GameObject> team2GameObjects = new List<GameObject>();
+    public List<GameObject> team1GameObjects = new List<GameObject>();
+    public List<GameObject> team2GameObjects = new List<GameObject>();
 
     public List<Actor> team1GameActors = new List<Actor>();
     public List<Actor> team2GameActors = new List<Actor>();
 
     private Vector3 ballStartPosition;
 
+    private CharacterSelectDropdownManager dropdownManager;
+
+    private int scoreTeam1 = 0;
+    private int scoreTeam2 = 0;
+
+    [SerializeField] private TextMeshProUGUI TMP_Score1;
+    [SerializeField] private TextMeshProUGUI TMP_Score2;
+
+    [SerializeField] private TextMeshProUGUI TMP_BlueWin;
+    [SerializeField] private TextMeshProUGUI TMP_PurpleWin;
+
+    private bool canScore = true;
+
+
     private void Start()
     {
+        GetDropDownManager();
+        ActivateActorsData();
+
         //SpawnTeams();
         
         SpawnActors();
@@ -83,6 +105,8 @@ public class SoccerGameManager : MonoBehaviour
         ResetPlayers();
     }
 
+    
+
     public void AddTeamPrefabs(List<GameObject> newTeam1Prefabs, List<GameObject> newTeam2Prefabs)
     {
         team1Prefabs.AddRange(newTeam1Prefabs);
@@ -133,4 +157,98 @@ public class SoccerGameManager : MonoBehaviour
     {
         ball.transform.position = ballStartPosition;
     }
+
+
+    public void BounceBall(GameObject obj)
+    {
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 force = Vector3.up * 1000f;
+            rb.AddForce(force);
+        }
+        else
+        {
+            Debug.LogWarning("The specified GameObject does not have a Rigidbody component.");
+        }
+    }
+
+
+    private void ResetScene()
+    {
+        ResetPlayers();
+        ResetBall();
+        StartGame();
+        BounceBall(ball);
+
+        canScore = true;
+    }
+    
+
+    private void GetDropDownManager()
+    {
+        // Look for the CharacterSelectDropdownManager component in the scene
+        dropdownManager = FindObjectOfType<CharacterSelectDropdownManager>();
+
+        // If we found it, log a message to the console
+        if (dropdownManager != null)
+        {
+            Debug.Log("Found CharacterSelectDropdownManager component");
+        }
+        else
+        {
+            Debug.LogError("Could not find CharacterSelectDropdownManager component");
+        }
+    }
+
+
+
+    public void ActivateActorsData()
+    {
+        // Spawn team 1 Actors
+        team1Actors.Add(dropdownManager.CreateActor(1));
+        team1Actors.Add(dropdownManager.CreateActor(2));
+
+        // Spawn team 2 Actors
+        team2Actors.Add(dropdownManager.CreateActor(3));
+        team2Actors.Add(dropdownManager.CreateActor(4));
+    }
+
+
+
+
+    public void GoalTouched(Team scoredTeam)
+    {
+        if(canScore)
+        {
+            if (scoredTeam == Team.Blue)
+            {
+                scoreTeam1++;
+                TMP_Score1.text = scoreTeam1.ToString();
+            }
+            else
+            {
+                scoreTeam2++;
+                TMP_Score2.text = scoreTeam2.ToString();
+            }
+        
+            canScore = false;
+
+            DelayedRestart();
+        }
+    }
+
+
+    //Reset Timer Management
+    public float delayTime = 1.5f; // the number of seconds to wait before calling ResetScene
+    void DelayedRestart () {
+        StartCoroutine(ResetAfterDelay());
+    }
+
+    IEnumerator ResetAfterDelay () {
+        yield return new WaitForSeconds(delayTime);
+        ResetScene();
+    }
+
+
 }
