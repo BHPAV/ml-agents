@@ -49,7 +49,7 @@ public class AgentCore : Agent
         }
         else
         {
-            initialPos = this.transform.parent.localPosition;
+            //initialPos = this.transform.parent.localPosition;
         }
 
         base.Awake(); 
